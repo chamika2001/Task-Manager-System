@@ -18,11 +18,11 @@ const Sidebar = () => {
         </div>
       </div>
       <div className="sidebar">
-        <Link to="/dashboard" >
+        <Link to="/dashboard" className="active">
           <FontAwesomeIcon icon={faTachometerAlt} />
           <h3>Dashboard</h3>
         </Link>
-        <Link to="/tasks" className="active">
+        <Link to="/tasks" >
           <FontAwesomeIcon icon={faTasks} />
           <h3>Task</h3>
         </Link>

@@ -18,35 +18,43 @@ const Sidebar = () => {
         </div>
       </div>
       <div className="sidebar">
-      <Link to="/dashboard" className="active">
-        <FontAwesomeIcon icon={faTachometerAlt} />
-        <h3>Dashboard</h3>
-      </Link>
-      <Link to="/tasks">
-        <FontAwesomeIcon icon={faTasks} />
-        <h3>Task</h3>
-      </Link>
-      <Link to="/cart">
-        <FontAwesomeIcon icon={faShoppingCart} />
-        <h3>Cart</h3>
-      </Link>
-      <Link to="/analysis">
-        <FontAwesomeIcon icon={faChartLine} />
-        <h3>Analysis</h3>
-      </Link>
-      <Link to="/add-new">
-        <FontAwesomeIcon icon={faPlus} />
-        <h3>Add New</h3>
-      </Link>
-      <Link to="/support">
-        <FontAwesomeIcon icon={faQuestionCircle} />
-        <h3>Support</h3>
-      </Link>
-      <Link to="/logout">
-        <FontAwesomeIcon icon={faSignOutAlt} />
-        <h3>Logout</h3>
-      </Link>
-    </div>
+        <Link to="/dashboard" >
+          <FontAwesomeIcon icon={faTachometerAlt} />
+          <h3>Dashboard</h3>
+        </Link>
+        <Link to="/tasks" className="active">
+          <FontAwesomeIcon icon={faTasks} />
+          <h3>Task</h3>
+        </Link>
+        <Link to="/cart">
+          <FontAwesomeIcon icon={faShoppingCart} />
+          <h3>Completed</h3>
+        </Link>
+        <Link to="/analysis">
+          <FontAwesomeIcon icon={faChartLine} />
+          <h3>In Progress</h3>
+        </Link>
+        <Link to="/add-new">
+          <FontAwesomeIcon icon={faPlus} />
+          <h3>To Do</h3>
+        </Link>
+        <Link to="/support">
+          <FontAwesomeIcon icon={faQuestionCircle} />
+          <h3>Team</h3>
+        </Link>
+        <Link to="/support">
+          <FontAwesomeIcon icon={faQuestionCircle} />
+          <h3>Trash</h3>
+        </Link>
+        <Link to="/support">
+          <FontAwesomeIcon icon={faQuestionCircle} />
+          <h3>Setting</h3>
+        </Link>
+        <Link to="/logout">
+          <FontAwesomeIcon icon={faSignOutAlt} />
+          <h3>Logout</h3>
+        </Link>
+      </div>
     </aside>
   );
 };

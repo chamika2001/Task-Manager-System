@@ -39,19 +39,27 @@ function Task(){
       </Link>
       <Link to="/cart">
         <FontAwesomeIcon icon={faShoppingCart} />
-        <h3>Cart</h3>
+        <h3>Completed</h3>
       </Link>
       <Link to="/analysis">
         <FontAwesomeIcon icon={faChartLine} />
-        <h3>Analysis</h3>
+        <h3>In Progress</h3>
       </Link>
       <Link to="/add-new">
         <FontAwesomeIcon icon={faPlus} />
-        <h3>Add New</h3>
+        <h3>To Do</h3>
       </Link>
       <Link to="/support">
         <FontAwesomeIcon icon={faQuestionCircle} />
-        <h3>Support</h3>
+        <h3>Team</h3>
+      </Link>
+      <Link to="/support">
+        <FontAwesomeIcon icon={faQuestionCircle} />
+        <h3>Trash</h3>
+      </Link>
+      <Link to="/support">
+        <FontAwesomeIcon icon={faQuestionCircle} />
+        <h3>Setting</h3>
       </Link>
       <Link to="/logout">
         <FontAwesomeIcon icon={faSignOutAlt} />

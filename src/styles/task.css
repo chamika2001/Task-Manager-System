@@ -1,0 +1,107 @@
+/* CSS for the "Add Task" Button */
+#open-popup {
+    margin: 20px auto; /* Center horizontally */
+    background-color: #073363;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    width: 100px;
+    height: 50px;
+    display: block; /* Center horizontally */
+}
+
+/* CSS for the Popup Form */
+#popup {
+    position:fixed;
+    width: 500px;
+    height: 680px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease-in-out;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 10; /* Ensure popup is above other elements */
+}
+
+#popup.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+#task-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    border: 1px solid #ccc; /* Add border to the form */
+    padding: 20px;
+    border-radius: 5px;
+}
+
+#task-form input,
+#task-form textarea,
+#task-form select {
+    border: 1px solid #ccc; /* Add border to form elements */
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+#close-popup,
+button[type="submit"] {
+    background-color: #333;
+    color: #fff;
+}
+
+#close-popup {
+    margin-left: 80%;
+    margin-top: 2%;
+}
+
+button:hover {
+    transform: scale(1.05); /* Subtle hover effect */
+}
+
+.hidden {
+    display: none;
+}
+
+.visible {
+    display: block;
+}
+
+.table {
+    width: 100%;
+    margin-top: 60px;
+    margin-left: 10%;
+    border-collapse: collapse;
+    border: #000;
+    text-align: left;
+}
+
+.table thead th {
+    border-bottom: 2px solid #000;
+    padding: 10px;
+    text-align: center;
+    vertical-align: top;
+}
+
+.table tbody td {
+    padding: 10px;
+    border-bottom: 1px solid #000000;
+    border-right: 1px solid black;
+}

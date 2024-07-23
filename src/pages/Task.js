@@ -1,12 +1,20 @@
-import React from 'react';
-import Sidebar from '../components/Sidebar';
+import React, { useState } from 'react';
+import TaskFormPopup from '../components/TaskFormPopup';
+import TaskTable from '../components/TaskTable';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTachometerAlt, faTasks, faShoppingCart, faChartLine, faPlus, faQuestionCircle, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 import  '../styles/dashboard.css';
 
-function Task() {
+function Task(){
+
+        const [showPopup, setShowPopup] = useState(false);
+      
+        const togglePopup = () => {
+          setShowPopup(!showPopup);
+        }
+        
   return (
     <div className="container">
        <aside>
@@ -50,6 +58,11 @@ function Task() {
       </Link>
     </div>
     </aside>
+    <div className="table-container">
+        <TaskTable />
+        <button id="open-popup" onClick={togglePopup}>Add Task</button>
+      </div>
+      {showPopup && <TaskFormPopup togglePopup={togglePopup} />}
 
     </div>
   );

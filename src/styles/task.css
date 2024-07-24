@@ -68,7 +68,7 @@ button {
 
 #close-popup,
 button[type="submit"] {
-    background-color: #333;
+    background-color: #512da8;
     color: #fff;
     margin-top: 0%;
 }

@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Dashboard from '../src/pages/Dashboard';
 import SignUpIn from '../src/pages/SignUpIn';
 import Task from '../src/pages/Task'
-import Sidebar from '../src/components/Sidebar'
+
 
 
 const App = () => {

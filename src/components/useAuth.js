@@ -1,53 +1,20 @@
-// src/components/useAuth.js
-import { useState } from "react";
-import { auth, db } from "../components/firebase-task";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { setDoc, doc } from "firebase/firestore";
+import { initializeApp } from "firebase/app";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { getFirestore, setDoc, doc } from "firebase/firestore";
 
-const useAuth = () => {
-  const [message, setMessage] = useState("");
-
-  const handleRegister = async (email, password, name, universityName, degreeName) => {
-    try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
-      const userData = {
-        email,
-        name,
-        universityName,
-        degreeName,
-      };
-      await setDoc(doc(db, "users", user.uid), userData);
-      setMessage("Account Created Successfully");
-    } catch (error) {
-      if (error.code === 'auth/email-already-in-use') {
-        setMessage('Email Address Already Exists !!!');
-      } else {
-        setMessage('Unable to create user');
-      }
-    }
-  };
-
-  const handleSignIn = async (email, password) => {
-    try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
-      localStorage.setItem('loggedInUserId', user.uid);
-      setMessage('Login is successful');
-      // Redirect to dashboard
-      window.location.href = '/pages/dashboard.html';
-    } catch (error) {
-      if (error.code === 'auth/wrong-password') {
-        setMessage('Invalid Email or Password');
-      } else if (error.code === 'auth/user-not-found') {
-        setMessage('Account does not Exist');
-      } else {
-        setMessage('Unable to log in');
-      }
-    }
-  };
-
-  return { message, handleRegister, handleSignIn };
+const firebaseConfig = {
+  apiKey: "AIzaSyBubWYb40n-2cIv1TPNPLjSW1mRmfFo4uM",
+  authDomain: "taskform-8c494.firebaseapp.com",
+  databaseURL: "https://taskform-8c494-default-rtdb.firebaseio.com",
+  projectId: "taskform-8c494",
+  storageBucket: "taskform-8c494.appspot.com",
+  messagingSenderId: "544113440895",
+  appId: "1:544113440895:web:ff116c0ad3c4766338274a"
 };
 
-export default useAuth;
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+export { auth, db, createUserWithEmailAndPassword, signInWithEmailAndPassword, setDoc, doc ,getAuth,getFirestore};

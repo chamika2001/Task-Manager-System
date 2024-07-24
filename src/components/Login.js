@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { getAuth, signInWithEmailAndPassword } from '../components/firebase-task';
+import { getAuth, signInWithEmailAndPassword } from '../components/useAuth';
 import '../styles/login.css';
 
 const Login = ({ onSignInSuccess, onError }) => {

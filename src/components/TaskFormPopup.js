@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { db } from '../components/firebase-task';
-import { ref, push, set } from 'firebase/database';
+import { getDatabase, ref, push, set } from 'firebase/database';
 import '../styles/task.css';
 
 const TaskFormPopup = ({ togglePopup }) => {
@@ -10,24 +9,32 @@ const TaskFormPopup = ({ togglePopup }) => {
   const [priority, setPriority] = useState('low');
   const [status, setStatus] = useState('to-do');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const userId = localStorage.getItem('loggedInUserId'); // Assuming user ID is stored in localStorage
+    const userId = localStorage.getItem('loggedInUserId'); // Retrieve user ID from localStorage
+
+    if (!userId) {
+      alert('User ID is missing. Please log in again.');
+      return;
+    }
+
+    const db = getDatabase();
     const newTaskRef = push(ref(db, `TaskSet/${userId}`));
 
-    set(newTaskRef, {
-      title: taskTitle,
-      description: taskDescription,
-      date: dueDate,
-      priority: priority,
-      status: status,
-      createdAt: Date.now() // Add timestamp
-    }).then(() => {
+    try {
+      await set(newTaskRef, {
+        title: taskTitle,
+        description: taskDescription,
+        date: dueDate,
+        priority: priority,
+        status: status,
+        createdAt: Date.now() // Add timestamp
+      });
       alert("Data added successfully");
       togglePopup(); // Close the popup after successful submission
-    }).catch((error) => {
-      alert("Unsuccessful: " + error);
-    });
+    } catch (error) {
+      alert("Unsuccessful: " + error.message);
+    }
   };
 
   return (

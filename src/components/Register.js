@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { getAuth, createUserWithEmailAndPassword } from '../components/firebase-task';
-import { getFirestore, setDoc, doc } from '../components/firebase-task';
+import { getAuth, createUserWithEmailAndPassword } from '../components/useAuth';
+import { getFirestore, setDoc, doc } from '../components/useAuth';
 import '../styles/login.css';
 
 const Register = ({ onSignUpSuccess, onError }) => {
@@ -17,6 +17,7 @@ const Register = ({ onSignUpSuccess, onError }) => {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
+      localStorage.setItem('loggedInUserId', user.uid); // Store user ID in localStorage
       await setDoc(doc(db, "users", user.uid), { email, name, universityName, degreeName });
       onSignUpSuccess();
     } catch (error) {

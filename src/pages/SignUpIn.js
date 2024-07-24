@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../styles/login.css';
 import Login from '../components/Login';
 import Register from '../components/Register';
@@ -8,12 +9,13 @@ const SignUpIn = () => {
   const [isActive, setIsActive] = useState(false);
   const [modalMessage, setModalMessage] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleSignInSuccess = () => {
     setModalMessage('Login is successful');
     setIsModalOpen(true);
     setTimeout(() => {
-      window.location.href = '/pages/dashboard.html'; // Adjust the redirect URL
+      navigate('/dashboard'); // Use navigate to redirect
     }, 4000);
   };
 
@@ -21,7 +23,7 @@ const SignUpIn = () => {
     setModalMessage('Account Created Successfully');
     setIsModalOpen(true);
     setTimeout(() => {
-      window.location.href = 'index.html'; // Adjust the redirect URL
+      navigate('/'); // Redirect to the home page after sign-up success
     }, 4000);
   };
 

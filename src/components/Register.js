@@ -44,9 +44,7 @@ const Register = ({ onSignUpSuccess, onError }) => {
         <input type="text" placeholder="University Name" value={universityName} onChange={(e) => setUniversityName(e.target.value)} required />
         <input type="text" placeholder="Degree Name" value={degreeName} onChange={(e) => setDegreeName(e.target.value)} required />
         <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-        <div className='button'>
-        <button type="submit" >Sign Up</button>
-        </div>
+        <button>Sign Up</button> 
       </form>
     </div>
   );

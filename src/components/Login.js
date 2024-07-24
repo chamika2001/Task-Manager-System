@@ -37,7 +37,7 @@ const Login = ({ onSignInSuccess, onError }) => {
         <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
         <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
         <a href="#">Forget Your Password?</a>
-        <button type="submit">Sign In</button>
+        <button>Sign In</button>
       </form>
     </div>
   );

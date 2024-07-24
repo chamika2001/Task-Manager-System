@@ -3,7 +3,7 @@ import TaskFormPopup from '../components/TaskFormPopup';
 import TaskTable from '../components/TaskTable';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTachometerAlt, faTasks, faShoppingCart, faChartLine, faPlus, faQuestionCircle, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faTachometerAlt, faTasks, faReceipt, faChartLine, faMailBulk, faUsers, faTrashAlt, faCog, faSignOutAlt,} from '@fortawesome/free-solid-svg-icons';
 
 import '../styles/dashboard.css';
 import '../styles/task.css';
@@ -34,31 +34,31 @@ function Task() {
           </Link>
           <Link to="/tasks" className="active">
             <FontAwesomeIcon icon={faTasks} />
-            <h3>Task</h3>
+            <h3>Tasks</h3>
           </Link>
-          <Link to="/cart">
-            <FontAwesomeIcon icon={faShoppingCart} />
+          <Link to="/completed">
+            <FontAwesomeIcon icon={faReceipt} />
             <h3>Completed</h3>
           </Link>
-          <Link to="/analysis">
+          <Link to="/in-progress">
             <FontAwesomeIcon icon={faChartLine} />
             <h3>In Progress</h3>
           </Link>
-          <Link to="/add-new">
-            <FontAwesomeIcon icon={faPlus} />
+          <Link to="/to-do">
+            <FontAwesomeIcon icon={faMailBulk} />
             <h3>To Do</h3>
           </Link>
-          <Link to="/support">
-            <FontAwesomeIcon icon={faQuestionCircle} />
+          <Link to="/team">
+            <FontAwesomeIcon icon={faUsers} />
             <h3>Team</h3>
           </Link>
-          <Link to="/support">
-            <FontAwesomeIcon icon={faQuestionCircle} />
+          <Link to="/trash">
+            <FontAwesomeIcon icon={faTrashAlt} />
             <h3>Trash</h3>
           </Link>
-          <Link to="/support">
-            <FontAwesomeIcon icon={faQuestionCircle} />
-            <h3>Setting</h3>
+          <Link to="/settings">
+            <FontAwesomeIcon icon={faCog} />
+            <h3>Settings</h3>
           </Link>
           <Link to="/logout">
             <FontAwesomeIcon icon={faSignOutAlt} />

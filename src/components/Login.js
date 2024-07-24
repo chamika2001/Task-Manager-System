@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { getAuth, signInWithEmailAndPassword } from '../components/useAuth';
+import { getAuth, signInWithEmailAndPassword } from '../components/useAuth'; // Import the signInWithEmailAndPassword method
 import '../styles/login.css';
 
 const Login = ({ onSignInSuccess, onError }) => {
@@ -10,7 +10,13 @@ const Login = ({ onSignInSuccess, onError }) => {
     event.preventDefault();
     const auth = getAuth();
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      
+      // Store user ID in localStorage
+      localStorage.setItem('loggedInUserId', user.uid);
+      
+      // Call the success callback
       onSignInSuccess();
     } catch (error) {
       let message = 'Unable to log in';
@@ -19,6 +25,7 @@ const Login = ({ onSignInSuccess, onError }) => {
       } else if (error.code === 'auth/user-not-found') {
         message = 'Account does not Exist';
       }
+      // Call the error callback with the error message
       onError(message);
     }
   };
@@ -34,10 +41,22 @@ const Login = ({ onSignInSuccess, onError }) => {
           <a href="#" className="a-icon"><i className="fa-brands fa-linkedin-in"></i></a>
         </div>
         <span>or use your email and password</span>
-        <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-        <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+        <input 
+          type="email" 
+          placeholder="Email" 
+          value={email} 
+          onChange={(e) => setEmail(e.target.value)} 
+          required 
+        />
+        <input 
+          type="password" 
+          placeholder="Password" 
+          value={password} 
+          onChange={(e) => setPassword(e.target.value)} 
+          required 
+        />
         <a href="#">Forget Your Password?</a>
-        <button>Sign In</button>
+        <button type="submit">Sign In</button>
       </form>
     </div>
   );

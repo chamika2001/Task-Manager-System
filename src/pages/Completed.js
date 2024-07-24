@@ -1,27 +1,55 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTachometerAlt, faTasks, faReceipt, faChartLine, faMailBulk, faUsers, faTrashAlt, faCog, faSignOutAlt,} from '@fortawesome/free-solid-svg-icons';
+import { faTachometerAlt, faTasks, faReceipt, faChartLine, faMailBulk, faUsers, faTrashAlt, faCog, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { getDatabase, ref, onValue, set } from 'firebase/database';
+import { initializeApp } from 'firebase/app';
+import { firebaseConfig } from '../components/firebase-task'; // Adjust the path according to your project structure
+import TaskRow from '../components/TaskRow'; // Adjust the path according to your project structure
 import '../styles/completed.css';
 
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
 function Completed() {
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState({});
+  const [userId, setUserId] = useState(localStorage.getItem('loggedInUserId'));
 
   useEffect(() => {
-    // Fetch completed tasks from the server or database
-    const fetchCompletedTasks = async () => {
-      // Replace with actual fetch logic
-      const response = await fetch('/api/completed-tasks');
-      const data = await response.json();
-      setTasks(data);
-    };
+    if (!userId) {
+      alert('User ID is missing. Please log in again.');
+      return;
+    }
 
-    fetchCompletedTasks();
-  }, []);
+    const taskRef = ref(db, `TaskSet/${userId}`);
+    onValue(taskRef, (snapshot) => {
+      if (snapshot.exists()) {
+        const allTasks = snapshot.val();
+        // Filter tasks to only include those with status 'completed'
+        const completedTasks = Object.keys(allTasks)
+          .filter(key => allTasks[key].status === 'completed')
+          .reduce((obj, key) => {
+            obj[key] = allTasks[key];
+            return obj;
+          }, {});
+        setTasks(completedTasks);
+      } else {
+        setTasks({});
+        console.log("No data available");
+      }
+    });
+  }, [userId]);
 
-  const handleDelete = (taskId) => {
-    // Add delete logic here
-    console.log('Deleting task with id:', taskId);
+  const deleteTask = async (taskId) => {
+    try {
+      await set(ref(db, `TaskSet/${userId}/${taskId}`), null);
+      const newTasks = { ...tasks };
+      delete newTasks[taskId];
+      setTasks(newTasks);
+    } catch (error) {
+      console.error("Error deleting task:", error);
+    }
   };
 
   return (
@@ -84,7 +112,7 @@ function Completed() {
         <table className="table">
           <thead>
             <tr>
-              <th>No</th> {/* Task number column */}
+              <th>No</th>
               <th>Title</th>
               <th>Description</th>
               <th>Date</th>
@@ -95,23 +123,13 @@ function Completed() {
             </tr>
           </thead>
           <tbody>
-            {tasks.map((task, index) => (
-              <tr key={task.id}>
-                <td>{index + 1}</td>
-                <td>{task.title}</td>
-                <td>{task.description}</td>
-                <td>{task.date}</td>
-                <td>{task.priority}</td>
-                <td>{task.status}</td>
-                <td>
-                  <img src={task.image} alt="Task" />
-                </td>
-                <td>
-                  <button onClick={() => handleDelete(task.id)}>
-                    <FontAwesomeIcon icon={faTrashAlt} />
-                  </button>
-                </td>
-              </tr>
+            {Object.keys(tasks).map((key, index) => (
+              <TaskRow
+                key={key}
+                task={{ id: key, ...tasks[key] }}
+                index={index}
+                onDelete={deleteTask}
+              />
             ))}
           </tbody>
         </table>

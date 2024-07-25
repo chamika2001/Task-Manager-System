@@ -4,6 +4,7 @@ import Dashboard from '../src/pages/Dashboard';
 import SignUpIn from '../src/pages/SignUpIn';
 import Task from '../src/pages/Task'
 import Completed from '../src/pages/Completed'
+import Team from '../src/pages/Team'
 
 
 
@@ -15,6 +16,7 @@ const App = () => {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/tasks" element={<Task />} />
         <Route path="/completed" element={<Completed />} />
+        <Route path="/team" element={<Team />} />
       
       </Routes>
     </Router>

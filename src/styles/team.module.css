@@ -1,0 +1,84 @@
+
+.formContainer {
+    margin-top: 150px;
+    margin-left: 430px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+    display: none; /* Initially hide all form containers */
+    height: 320px; /* Adjust height dynamically based on content */
+}
+
+.formContainerActive {
+    display: block; /* Display the active form container */
+}
+
+.formContainerForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.formContainerHeading {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.formContainerInput {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+.formContainerInput:focus {
+    border-color: rgb(0, 0, 0);
+}
+
+.formContainerButton {
+    padding: 12px;
+    border: none;
+    background-color: rgb(17, 54, 91);
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.formContainerButton:hover {
+    background-color: #102b45;
+}
+
+.formSwitch {
+    margin-top: 10px;
+}
+
+.formSwitchLink {
+    text-decoration: none;
+    color: rgb(15, 57, 99);
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #fff;
+    padding: 15px 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.popupShow {
+    display: block;
+}

@@ -92,10 +92,6 @@ function Completed() {
             <FontAwesomeIcon icon={faUsers} />
             <h3>Team</h3>
           </Link>
-          <Link to="/trash">
-            <FontAwesomeIcon icon={faTrashAlt} />
-            <h3>Trash</h3>
-          </Link>
           <Link to="/settings">
             <FontAwesomeIcon icon={faCog} />
             <h3>Settings</h3>

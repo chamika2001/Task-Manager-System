@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { getDatabase, ref, push, set } from 'firebase/database';
+import { getDatabase, ref, push, set, onValue } from 'firebase/database';
 import '../styles/task.css';
 
 const TaskFormPopup = ({ togglePopup }) => {
@@ -22,6 +22,7 @@ const TaskFormPopup = ({ togglePopup }) => {
     const newTaskRef = push(ref(db, `TaskSet/${userId}`));
 
     try {
+      // Add new task
       await set(newTaskRef, {
         title: taskTitle,
         description: taskDescription,
@@ -30,10 +31,41 @@ const TaskFormPopup = ({ togglePopup }) => {
         status: status,
         createdAt: Date.now() // Add timestamp
       });
+
+      // Update task counts
+      await updateTaskCounts(userId);
+
       alert("Data added successfully");
       togglePopup(); // Close the popup after successful submission
     } catch (error) {
       alert("Unsuccessful: " + error.message);
+    }
+  };
+
+  const updateTaskCounts = async (userId) => {
+    try {
+      const taskRef = ref(getDatabase(), `TaskSet/${userId}`);
+      const snapshot = await new Promise((resolve) => onValue(taskRef, resolve, { onlyOnce: true }));
+
+      const tasks = snapshot.val();
+      const counts = {
+        total: 0,
+        todo: 0,
+        inProgress: 0,
+        completed: 0
+      };
+
+      if (tasks) {
+        counts.total = Object.keys(tasks).length;
+        counts.todo = Object.values(tasks).filter(task => task.status === 'to-do').length;
+        counts.inProgress = Object.values(tasks).filter(task => task.status === 'in-progress').length;
+        counts.completed = Object.values(tasks).filter(task => task.status === 'completed').length;
+      }
+
+      // Update counts in the database
+      await set(ref(getDatabase(), `TaskCount/${userId}`), counts);
+    } catch (error) {
+      console.error("Error updating task counts:", error);
     }
   };
 

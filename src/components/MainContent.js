@@ -15,6 +15,34 @@ const MainContent = () => {
             </div>
           </div>
         </div>
+
+        <div className="tasks">
+          <div className="status">
+            <div className="info">
+              <h3>COMPLETED TASKS</h3>
+              <h1>34</h1>
+            </div>
+          </div>
+        </div>
+
+        <div className="tasks">
+          <div className="status">
+            <div className="info">
+              <h3>IN-PROGRESS TASKS</h3>
+              <h1>34</h1>
+            </div>
+          </div>
+        </div>
+
+        <div className="tasks">
+          <div className="status">
+            <div className="info">
+              <h3>TO-DO TASKS</h3>
+              <h1>34</h1>
+            </div>
+          </div>
+        </div>
+
         {/* Add more analysis sections as needed */}
       </div>
       <div className="recent-tasks">

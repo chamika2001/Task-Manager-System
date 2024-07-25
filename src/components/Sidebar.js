@@ -56,7 +56,7 @@ const Sidebar = () => {
             <FontAwesomeIcon icon={faCog} />
             <h3>Settings</h3>
           </Link>
-          <Link to="/logout">
+          <Link to="/">
             <FontAwesomeIcon icon={faSignOutAlt} />
             <h3>Logout</h3>
           </Link>

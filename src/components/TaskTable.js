@@ -74,7 +74,7 @@ const TaskTable = () => {
   };
 
   return (
-    <table className="table">
+    <table className="a-table">
       <thead>
         <tr>
           <th>No</th>

@@ -6,6 +6,7 @@ import Task from '../src/pages/Task'
 import Completed from '../src/pages/Completed'
 import Team from '../src/pages/Team'
 import ToDo from './pages/To-do';
+import Inprogress from './pages/In_progress';
 
 
 const App = () => {
@@ -18,6 +19,7 @@ const App = () => {
         <Route path="/completed" element={<Completed />} />
         <Route path="/team" element={<Team />} />
         <Route path="/to-do" element={<ToDo />} />
+        <Route path="/in-progress" element={<Inprogress />} />
       
       </Routes>
     </Router>

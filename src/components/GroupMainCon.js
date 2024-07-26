@@ -68,6 +68,7 @@ function GroupMainCon({ tasks, taskCounts, updateTaskCounts }) {
                             <th>Title</th>
                             <th>Status</th>
                             <th>Priority</th>
+                            <th>Name</th>
                             <th>Due Date</th>
                         </tr>
                     </thead>
@@ -77,6 +78,7 @@ function GroupMainCon({ tasks, taskCounts, updateTaskCounts }) {
                                 <td>{task.title}</td> {/* Changed 'task.name' to 'task.title' */}
                                 <td>{task.status}</td>
                                 <td>{task.priority}</td>
+                                <td>{task.name}</td>
                                 <td>{task.date}</td> {/* Changed 'task.dueDate' to 'task.date' */}
                             </tr>
                         ))}

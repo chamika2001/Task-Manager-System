@@ -8,7 +8,7 @@ import Team from '../src/pages/Team'
 import ToDo from './pages/To-do';
 import Inprogress from './pages/In_progress';
 import GroupDash from './pages/GroupDash';
-
+import InProgressTasks  from './pages/GroupIn_pro';
 
 
 
@@ -24,6 +24,7 @@ const App = () => {
         <Route path="/to-do" element={<ToDo />} />
         <Route path="/in-progress" element={<Inprogress />} />
         <Route path="/Group-dashboard" element={<GroupDash />} />
+        <Route path="/GroupIn_pro" element={<InProgressTasks />} />
       
       
       </Routes>

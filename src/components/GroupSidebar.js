@@ -40,7 +40,7 @@ const Sidebar = () => {
             <FontAwesomeIcon icon={faReceipt} />
             <h3>Completed</h3>
           </Link>
-          <Link to="/in-progress">
+          <Link to="/GroupIn_pro">
             <FontAwesomeIcon icon={faChartLine} />
             <h3>In Progress</h3>
           </Link>

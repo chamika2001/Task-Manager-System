@@ -9,6 +9,7 @@ function Popup({ onClose }) {
     const [dueDate, setDueDate] = useState('');
     const [priority, setPriority] = useState('low');
     const [status, setStatus] = useState('to-do');
+    const [name, setName] = useState(''); // New state for name
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -19,6 +20,7 @@ function Popup({ onClose }) {
         const newTaskRef = push(ref(db, `projects/${currentProject}/TaskSet`));
         set(newTaskRef, {
             userId,
+            name, // Include name in the task data
             description: taskDescription,
             date: dueDate,
             priority,
@@ -81,6 +83,14 @@ function Popup({ onClose }) {
                     <option value="in-progress">In-progress</option>
                     <option value="completed">Completed</option>
                 </select>
+                <label htmlFor="name">Name:</label> {/* New name input field */}
+                <input
+                    type="text"
+                    id="name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                />
                 <button type="button">Add image</button>
                 <button type="submit">Save Task</button>
             </form>

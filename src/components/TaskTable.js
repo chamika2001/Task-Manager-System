@@ -4,6 +4,7 @@ import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from '../components/firebase-task'; // Adjust the path according to your project structure
 import TaskRow from '../components/TaskRow'; // Adjust the path according to your project structure
 import '../styles/task.css';
+import ImageModal from '../components/ImageModal'; // Import ImageModal component
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -12,6 +13,7 @@ const db = getDatabase(app);
 const TaskTable = () => {
   const [tasks, setTasks] = useState({});
   const [userId, setUserId] = useState(localStorage.getItem('loggedInUserId'));
+  const [modalImage, setModalImage] = useState(null);
 
   useEffect(() => {
     if (!userId) {
@@ -73,31 +75,43 @@ const TaskTable = () => {
     }
   };
 
+  const handleViewImage = (imageUrl) => {
+    setModalImage(imageUrl);
+  };
+
+  const closeModal = () => {
+    setModalImage(null);
+  };
+
   return (
-    <table className="a-table">
-      <thead>
-        <tr>
-          <th>No</th>
-          <th>Title</th>
-          <th>Description</th>
-          <th>Date</th>
-          <th>Priority</th>
-          <th>Status</th>
-          <th>Image</th>
-          <th>Delete task</th>
-        </tr>
-      </thead>
-      <tbody>
-        {Object.keys(tasks).map((key, index) => (
-          <TaskRow
-            key={key}
-            task={{ id: key, ...tasks[key] }}
-            index={index}
-            onDelete={deleteTask}
-          />
-        ))}
-      </tbody>
-    </table>
+    <>
+      <table className="a-table">
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Date</th>
+            <th>Priority</th>
+            <th>Status</th>
+            <th>Image</th>
+            <th>Delete task</th>
+          </tr>
+        </thead>
+        <tbody>
+          {Object.keys(tasks).map((key, index) => (
+            <TaskRow
+              key={key}
+              task={{ id: key, ...tasks[key] }}
+              index={index}
+              onDelete={deleteTask}
+              onViewImage={handleViewImage}
+            />
+          ))}
+        </tbody>
+      </table>
+      {modalImage && <ImageModal imageUrl={modalImage} onClose={closeModal} />}
+    </>
   );
 };
 

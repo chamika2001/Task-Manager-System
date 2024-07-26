@@ -1,7 +1,7 @@
 import React from 'react';
 
-const TaskRow = ({ task, index, onDelete }) => {
-  const { title, description, date, priority, status } = task;
+const TaskRow = ({ task, index, onDelete, onViewImage }) => {
+  const { title, description, date, priority, status, imageUrl } = task;
 
   return (
     <tr>
@@ -11,7 +11,9 @@ const TaskRow = ({ task, index, onDelete }) => {
       <td>{date}</td>
       <td>{priority}</td>
       <td>{status}</td>
-      <td><button>Upload Image</button></td>
+      <td>
+        <button onClick={() => onViewImage(imageUrl || 'No Image')}>View</button>
+      </td>
       <td><button onClick={() => onDelete(task.id)}>Delete</button></td>
     </tr>
   );

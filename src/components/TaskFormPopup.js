@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { getDatabase, ref, push, set, onValue } from 'firebase/database';
+import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
 import '../styles/task.css';
 
 const TaskFormPopup = ({ togglePopup }) => {
@@ -8,6 +9,8 @@ const TaskFormPopup = ({ togglePopup }) => {
   const [dueDate, setDueDate] = useState('');
   const [priority, setPriority] = useState('low');
   const [status, setStatus] = useState('to-do');
+  const [imageFile, setImageFile] = useState(null);
+  const [imageUrl, setImageUrl] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,6 +25,12 @@ const TaskFormPopup = ({ togglePopup }) => {
     const newTaskRef = push(ref(db, `TaskSet/${userId}`));
 
     try {
+      let uploadedImageUrl = '';
+
+      if (imageFile) {
+        uploadedImageUrl = await handleImageUpload(imageFile, userId);
+      }
+
       // Add new task
       await set(newTaskRef, {
         title: taskTitle,
@@ -29,7 +38,8 @@ const TaskFormPopup = ({ togglePopup }) => {
         date: dueDate,
         priority: priority,
         status: status,
-        createdAt: Date.now() // Add timestamp
+        createdAt: Date.now(), // Add timestamp
+        imageUrl: uploadedImageUrl
       });
 
       // Update task counts
@@ -40,6 +50,14 @@ const TaskFormPopup = ({ togglePopup }) => {
     } catch (error) {
       alert("Unsuccessful: " + error.message);
     }
+  };
+
+  const handleImageUpload = async (file, userId) => {
+    const storage = getStorage();
+    const fileRef = storageRef(storage, `images/${userId}/${file.name}`);
+    await uploadBytes(fileRef, file);
+    const downloadURL = await getDownloadURL(fileRef);
+    return downloadURL;
   };
 
   const updateTaskCounts = async (userId) => {
@@ -67,6 +85,10 @@ const TaskFormPopup = ({ togglePopup }) => {
     } catch (error) {
       console.error("Error updating task counts:", error);
     }
+  };
+
+  const handleFileChange = (e) => {
+    setImageFile(e.target.files[0]);
   };
 
   return (
@@ -123,7 +145,13 @@ const TaskFormPopup = ({ togglePopup }) => {
             <option value="in-progress">In-progress</option>
             <option value="completed">Completed</option>
           </select>
-          <button type="button">Add image</button>
+          <label htmlFor="task-image">Add Image:</label>
+          <input 
+            type="file" 
+            id="task-image" 
+            name="task-image" 
+            onChange={handleFileChange} 
+          />
           <button type="submit">Save Task</button>
         </form>
         <button id="close-popup" onClick={togglePopup}>Close</button>

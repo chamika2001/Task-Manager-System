@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTachometerAlt, faTasks, faReceipt, faChartLine, faMailBulk, faUsers, faTrashAlt, faCog, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faTachometerAlt, faTasks, faReceipt, faChartLine, faMailBulk, faUsers, faCog, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { getDatabase, ref, onValue, set } from 'firebase/database';
 import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from '../components/firebase-task'; // Adjust the path according to your project structure
 import TaskRow from '../components/TaskRow'; // Adjust the path according to your project structure
+import ImageModal from '../components/ImageModal'; // Import ImageModal component
 import '../styles/completed.css';
 
 // Initialize Firebase
@@ -15,6 +16,7 @@ const db = getDatabase(app);
 function ToDo() {
   const [tasks, setTasks] = useState({});
   const [userId, setUserId] = useState(localStorage.getItem('loggedInUserId'));
+  const [modalImage, setModalImage] = useState(null);
 
   useEffect(() => {
     if (!userId) {
@@ -26,14 +28,14 @@ function ToDo() {
     onValue(taskRef, (snapshot) => {
       if (snapshot.exists()) {
         const allTasks = snapshot.val();
-        // Filter tasks to only include those with status 'completed'
-        const completedTasks = Object.keys(allTasks)
+        // Filter tasks to only include those with status 'to-do'
+        const todoTasks = Object.keys(allTasks)
           .filter(key => allTasks[key].status === 'to-do')
           .reduce((obj, key) => {
             obj[key] = allTasks[key];
             return obj;
           }, {});
-        setTasks(completedTasks);
+        setTasks(todoTasks);
       } else {
         setTasks({});
         console.log("No data available");
@@ -50,6 +52,14 @@ function ToDo() {
     } catch (error) {
       console.error("Error deleting task:", error);
     }
+  };
+
+  const handleViewImage = (imageUrl) => {
+    setModalImage(imageUrl);
+  };
+
+  const closeModal = () => {
+    setModalImage(null);
   };
 
   return (
@@ -84,7 +94,7 @@ function ToDo() {
             <FontAwesomeIcon icon={faChartLine} />
             <h3>In Progress</h3>
           </Link>
-          <Link to="/to-do"  className="active">
+          <Link to="/to-do" className="active">
             <FontAwesomeIcon icon={faMailBulk} />
             <h3>To Do</h3>
           </Link>
@@ -125,11 +135,13 @@ function ToDo() {
                 task={{ id: key, ...tasks[key] }}
                 index={index}
                 onDelete={deleteTask}
+                onViewImage={handleViewImage}
               />
             ))}
           </tbody>
         </table>
       </div>
+      {modalImage && <ImageModal imageUrl={modalImage} onClose={closeModal} />}
     </div>
   );
 }

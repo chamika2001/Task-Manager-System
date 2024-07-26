@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTachometerAlt, faTasks, faReceipt, faChartLine, faMailBulk, faUsers, faCog, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import emailjs from 'emailjs-com';
@@ -13,6 +13,7 @@ function Team() {
   const [projectDetails, setProjectDetails] = useState('');
   const [emailParams, setEmailParams] = useState({ name: '', to: '', pname: '' });
   const [popupMessage, setPopupMessage] = useState(''); // State for popup message
+  const navigate = useNavigate(); // Initialize useNavigate hook
 
   const toggleForm = (formId) => {
     setActiveForm(formId);
@@ -61,7 +62,7 @@ function Team() {
         alert('Access granted to project: ' + projectName);
         localStorage.setItem('loggedInProject', projectName);
         localStorage.setItem('projectDescription', snapshot.val().details);
-        window.location.href = '/GROUP-PROJECT/pages/dashboard.html';
+        navigate('/Group-dashboard'); // Use navigate to redirect
       } else {
         alert('Project does not exist. Please enter a valid project name.');
       }

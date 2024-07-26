@@ -106,7 +106,7 @@ const MainContent = () => {
           </div>
         </div>
       </div>
-
+      <br></br><br></br>
       <div className="recent-tasks">
         <h2>High Priority Tasks</h2>
         <table>

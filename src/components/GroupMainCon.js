@@ -13,9 +13,17 @@ function GroupMainCon({ tasks, taskCounts, updateTaskCounts }) {
         setPopupVisible(false);
     };
 
+    // Filter tasks to show only high-priority tasks with status 'to-do' or 'in-progress'
+    const highPriorityTasks = tasks
+        .filter(task =>
+            task.priority === 'high' && (task.status === 'to-do' || task.status === 'in-progress')
+        )
+        .sort((a, b) => b.createdAt - a.createdAt) // Sort tasks by createdAt in descending order
+        .slice(0, 4); // Get the latest 4 tasks
+
     return (
         <>
-            <h1>DashBoard</h1>
+            <h1>Dashboard</h1>
             <div className="analyse">
                 <div className="tasks">
                     <div className="status">
@@ -24,7 +32,6 @@ function GroupMainCon({ tasks, taskCounts, updateTaskCounts }) {
                             <h1 id="totalTasks">{taskCounts.totalTasks}</h1>
                         </div>
                     </div>
-                    
                 </div>
                 <div className="tasks">
                     <div className="status">
@@ -33,7 +40,6 @@ function GroupMainCon({ tasks, taskCounts, updateTaskCounts }) {
                             <h1 id="tasksCompleted">{taskCounts.tasksCompleted}</h1>
                         </div>
                     </div>
-                    
                 </div>
                 <div className="tasks">
                     <div className="status">
@@ -42,7 +48,6 @@ function GroupMainCon({ tasks, taskCounts, updateTaskCounts }) {
                             <h1 id="tasksInProgress">{taskCounts.tasksInProgress}</h1>
                         </div>
                     </div>
-                    
                 </div>
                 <div className="tasks">
                     <div className="status">
@@ -51,38 +56,28 @@ function GroupMainCon({ tasks, taskCounts, updateTaskCounts }) {
                             <h1 id="toDoTasks">{taskCounts.toDoTasks}</h1>
                         </div>
                     </div>
-                    
                 </div>
             </div>
             <button id="open-popup" onClick={handleAddTaskClick}>Add Task</button>
             {isPopupVisible && <Popup onClose={handleClosePopup} />}
             <div className="recent-tasks">
-                <h2>Recent Tasks</h2>
-                <table className="table">
+                <h2>High Priority Tasks</h2>
+                <table>
                     <thead>
                         <tr>
-                            <th>No</th>
                             <th>Title</th>
-                            <th>Description</th>
-                            <th>Date</th>
-                            <th>Priority</th>
                             <th>Status</th>
-                            <th>Image</th>
-                            <th></th>
-                            <th>Delete</th>
+                            <th>Priority</th>
+                            <th>Due Date</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {tasks.map((task, index) => (
+                        {highPriorityTasks.map(task => (
                             <tr key={task.id}>
-                                <td className="task-number">{index + 1}</td>
-                                <td>{task.title}</td>
-                                <td>{task.description}</td>
-                                <td>{task.date}</td>
-                                <td>{task.priority}</td>
+                                <td>{task.title}</td> {/* Changed 'task.name' to 'task.title' */}
                                 <td>{task.status}</td>
-                                <td><button>Upload Image</button></td>
-                                <td><button className="delete-task" data-id={task.id}>Delete</button></td>
+                                <td>{task.priority}</td>
+                                <td>{task.date}</td> {/* Changed 'task.dueDate' to 'task.date' */}
                             </tr>
                         ))}
                     </tbody>

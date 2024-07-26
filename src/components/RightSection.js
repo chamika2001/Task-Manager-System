@@ -37,7 +37,7 @@ const RightSection = () => {
         </div>
       </div>
 
-      {/* Other elements in the right section */}
+      <br></br>
       <div className="right-section-content">
         <div className="user-profile">
           <div className="logo">

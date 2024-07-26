@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTachometerAlt, faTasks, faReceipt, faChartLine, faMailBulk, faUsers, faCog, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faTachometerAlt, faTasks, faReceipt, faChartLine, faMailBulk, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { getDatabase, ref, onValue, set, update } from 'firebase/database';
 import { initializeApp } from 'firebase/app';
-import '../styles/completed.css'; // Adjust path if needed
+import '../styles/completed.css'; 
+import '../styles/modal.css';
 
 const firebaseConfig = {
     apiKey: "AIzaSyBubWYb40n-2cIv1TPNPLjSW1mRmfFo4uM",
@@ -22,6 +23,7 @@ const db = getDatabase(app);
 const InProgressTasks = () => {
     const [tasks, setTasks] = useState([]);
     const [currentProject, setCurrentProject] = useState(localStorage.getItem('loggedInProject'));
+    const [selectedImage, setSelectedImage] = useState(''); // State for the selected image
 
     useEffect(() => {
         if (!currentProject) {
@@ -66,6 +68,15 @@ const InProgressTasks = () => {
             console.error("Error deleting task:", error);
         }
     };
+    const handleCloseImage = () => {
+        setSelectedImage(''); // Clear the selected image URL
+    };
+
+    const handleViewImage = (imageUrl) => {
+        setSelectedImage(imageUrl); // Set the selected image URL
+    };
+
+   
 
     return (
         <div className="container">
@@ -132,7 +143,13 @@ const InProgressTasks = () => {
                                 <td>{task.name}</td>
                                 <td>{task.date}</td>
                                 <td>{task.priority}</td>
-                                <td><button>Upload Image</button></td>
+                                <td>
+                                    {task.imageUrl ? (
+                                        <button onClick={() => handleViewImage(task.imageUrl)}>View</button>
+                                    ) : (
+                                        'No image'
+                                    )}
+                                </td>
                                 <td>
                                     <button onClick={() => handleCompleteTask(task.id)} className="complete-task">Complete</button>
                                 </td>
@@ -144,6 +161,14 @@ const InProgressTasks = () => {
                     </tbody>
                 </table>
             </div>
+            {selectedImage && (
+                <div className="modal">
+                    <div className="modal-content">
+                        <img src={selectedImage} alt="Task" />
+                        <span onClick={handleCloseImage} className="close">&times;</span>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

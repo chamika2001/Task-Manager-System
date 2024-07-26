@@ -94,11 +94,11 @@ const InProgressTasks = () => {
                         <FontAwesomeIcon icon={faReceipt} />
                         <h3>Completed</h3>
                     </Link>
-                    <Link to="/in-progress" className="active">
+                    <Link to="/GroupIn_pro" className="active">
                         <FontAwesomeIcon icon={faChartLine} />
                         <h3>In Progress</h3>
                     </Link>
-                    <Link to="/to-do">
+                    <Link to="/GroupTodo">
                         <FontAwesomeIcon icon={faMailBulk} />
                         <h3>To Do</h3>
                     </Link>

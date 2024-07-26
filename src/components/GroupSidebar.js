@@ -28,7 +28,7 @@ const Sidebar = () => {
         </div>
       </div>
       <div className="sidebar">
-          <Link to="/dashboard" className="active">
+          <Link to="/Group-dashboard" className="active">
             <FontAwesomeIcon icon={faTachometerAlt} />
             <h3>Dashboard</h3>
           </Link>
@@ -44,7 +44,7 @@ const Sidebar = () => {
             <FontAwesomeIcon icon={faChartLine} />
             <h3>In Progress</h3>
           </Link>
-          <Link to="/to-do">
+          <Link to="/GroupTodo">
             <FontAwesomeIcon icon={faMailBulk} />
             <h3>To Do</h3>
           </Link>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { initializeApp } from 'firebase/app';
 import { getDatabase, ref, push, set, onValue, update, remove } from 'firebase/database';
-import Sidebar from '../components/Sidebar';
+import Sidebar from '../components/GroupSidebar';
 import GroupMainCon from '../components/GroupMainCon';
 import GroupRightSec from '../components/GroupRightSec';
 

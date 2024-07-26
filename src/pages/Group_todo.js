@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTachometerAlt, faTasks, faReceipt, faChartLine, faMailBulk, faUsers, faCog, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faTachometerAlt, faTasks, faReceipt, faChartLine, faMailBulk, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { getDatabase, ref, onValue, set, update } from 'firebase/database';
 import { initializeApp } from 'firebase/app';
 import '../styles/completed.css'; // Adjust path if needed
@@ -21,7 +21,8 @@ const db = getDatabase(app);
 
 const GroupTodo = () => {
     const [tasks, setTasks] = useState([]);
-    const [currentProject, setCurrentProject] = useState(localStorage.getItem('loggedInProject'));
+    const [selectedImage, setSelectedImage] = useState(''); // State for the selected image
+    const currentProject = localStorage.getItem('loggedInProject');
 
     useEffect(() => {
         if (!currentProject) {
@@ -66,10 +67,18 @@ const GroupTodo = () => {
         }
     };
 
+    const handleViewImage = (imageUrl) => {
+        setSelectedImage(imageUrl); // Set the selected image URL
+    };
+
+    const handleCloseImage = () => {
+        setSelectedImage(''); // Clear the selected image URL
+    };
+
     return (
         <div className="container">
             <aside>
-            <div className="toggle">
+                <div className="toggle">
                     <div className="logo">
                         <img src="/assets/images/logo.png" alt="Logo" />
                         <h2>
@@ -123,26 +132,46 @@ const GroupTodo = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {tasks.map((task, index) => (
-                            <tr key={task.id}>
-                                <td className="task-number">{index + 1}</td>
-                                <td>{task.title}</td>
-                                <td>{task.description}</td>
-                                <td>{task.name}</td>
-                                <td>{task.date}</td>
-                                <td>{task.priority}</td>
-                                <td><button>Upload Image</button></td>
-                                <td>
-                                    <button onClick={() => handleCompleteTask(task.id)} className="complete-task">Complete</button>
-                                </td>
-                                <td>
-                                    <button onClick={() => handleDeleteTask(task.id)} className="delete-task">Delete</button>
-                                </td>
+                        {tasks.length > 0 ? (
+                            tasks.map((task, index) => (
+                                <tr key={task.id}>
+                                    <td className="task-number">{index + 1}</td>
+                                    <td>{task.title}</td>
+                                    <td>{task.description}</td>
+                                    <td>{task.name}</td>
+                                    <td>{task.date}</td>
+                                    <td>{task.priority}</td>
+                                    <td>
+                                        {task.imageUrl ? (
+                                            <button onClick={() => handleViewImage(task.imageUrl)}>View</button>
+                                        ) : (
+                                            'No image'
+                                        )}
+                                    </td>
+                                    <td>
+                                        <button onClick={() => handleCompleteTask(task.id)} className="complete-task">Complete</button>
+                                    </td>
+                                    <td>
+                                        <button onClick={() => handleDeleteTask(task.id)} className="delete-task">Delete</button>
+                                    </td>
+                                </tr>
+                            ))
+                        ) : (
+                            <tr>
+                                <td colSpan="9">No tasks available</td>
                             </tr>
-                        ))}
+                        )}
                     </tbody>
                 </table>
             </div>
+            {selectedImage && (
+                <div className="modal">
+                    <div className="modal-content">
+                        <img src={selectedImage} alt="Task" />
+                        <span onClick={handleCloseImage} className="close">&times;</span>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

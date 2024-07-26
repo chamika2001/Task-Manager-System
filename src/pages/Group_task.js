@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getDatabase, ref, onValue, set } from 'firebase/database';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTachometerAlt, faTasks, faReceipt, faChartLine, faMailBulk, faUsers, faCog, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faTachometerAlt, faTasks, faReceipt, faChartLine, faMailBulk, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { initializeApp } from 'firebase/app';
 import '../styles/completed.css';
+import '../styles/modal.css';
 
 // Firebase configuration
 const firebaseConfig = {
@@ -23,6 +24,7 @@ const db = getDatabase(app);
 
 const GroupTasks = () => {
     const [tasks, setTasks] = useState([]);
+    const [selectedImage, setSelectedImage] = useState('');
     const currentProject = localStorage.getItem('loggedInProject');
 
     useEffect(() => {
@@ -58,6 +60,14 @@ const GroupTasks = () => {
         }
     };
 
+    const handleViewImage = (imageUrl) => {
+        setSelectedImage(imageUrl); // Set the selected image URL
+    };
+
+    const handleCloseImage = () => {
+        setSelectedImage(''); // Clear the selected image URL
+    };
+
     return (
         <div className="container">
             <aside>
@@ -77,7 +87,7 @@ const GroupTasks = () => {
                         <FontAwesomeIcon icon={faTachometerAlt} />
                         <h3>Dashboard</h3>
                     </Link>
-                    <Link to="/GroupTasks"  className="active">
+                    <Link to="/GroupTasks" className="active">
                         <FontAwesomeIcon icon={faTasks} />
                         <h3>Tasks</h3>
                     </Link>
@@ -124,7 +134,13 @@ const GroupTasks = () => {
                                 <td>{task.date}</td>
                                 <td>{task.priority}</td>
                                 <td>{task.status}</td>
-                                <td><button>Upload Image</button></td>
+                                <td>
+                                    {task.imageUrl ? (
+                                        <button onClick={() => handleViewImage(task.imageUrl)}>View</button>
+                                    ) : (
+                                        'No image'
+                                    )}
+                                </td>
                                 <td>
                                     <button
                                         className="delete-task"
@@ -138,6 +154,14 @@ const GroupTasks = () => {
                     </tbody>
                 </table>
             </div>
+            {selectedImage && (
+                <div className="modal">
+                    <div className="modal-content">
+                        <img src={selectedImage} alt="Task" />
+                        <span onClick={handleCloseImage} className="close">&times;</span>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

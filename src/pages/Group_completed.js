@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { getDatabase, ref, onValue, set } from 'firebase/database';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTachometerAlt, faTasks, faReceipt, faChartLine, faMailBulk, faUsers, faCog, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faTachometerAlt, faTasks, faReceipt, faChartLine, faMailBulk, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { initializeApp } from 'firebase/app';
 import '../styles/completed.css';
+import '../styles/modal.css'
 
 const firebaseConfig = {
     apiKey: "AIzaSyBubWYb40n-2cIv1TPNPLjSW1mRmfFo4uM",
@@ -21,7 +22,8 @@ const db = getDatabase(app);
 
 const CompletedTasks = () => {
     const [tasks, setTasks] = useState([]);
-    const [currentProject, setCurrentProject] = useState(localStorage.getItem('loggedInProject'));
+    const [selectedImage, setSelectedImage] = useState(''); // State for the selected image
+    const currentProject = localStorage.getItem('loggedInProject');
 
     useEffect(() => {
         if (!currentProject) {
@@ -57,6 +59,14 @@ const CompletedTasks = () => {
         }
     };
 
+    const handleViewImage = (imageUrl) => {
+        setSelectedImage(imageUrl); // Set the selected image URL
+    };
+
+    const handleCloseImage = () => {
+        setSelectedImage(''); // Clear the selected image URL
+    };
+
     return (
         <div className="container">
             <aside>
@@ -80,7 +90,7 @@ const CompletedTasks = () => {
                         <FontAwesomeIcon icon={faTasks} />
                         <h3>Tasks</h3>
                     </Link>
-                    <Link to="/GroupCompleted"  className="active">
+                    <Link to="/GroupCompleted" className="active">
                         <FontAwesomeIcon icon={faReceipt} />
                         <h3>Completed</h3>
                     </Link>
@@ -122,7 +132,13 @@ const CompletedTasks = () => {
                                     <td>{task.name}</td>
                                     <td>{task.date}</td>
                                     <td>{task.priority}</td>
-                                    <td><button>Upload Image</button></td>
+                                    <td>
+                                        {task.imageUrl ? (
+                                            <button onClick={() => handleViewImage(task.imageUrl)}>View</button>
+                                        ) : (
+                                            'No image'
+                                        )}
+                                    </td>
                                     <td>
                                         <button 
                                             className="delete-task" 
@@ -141,6 +157,14 @@ const CompletedTasks = () => {
                     </tbody>
                 </table>
             </div>
+            {selectedImage && (
+                <div className="modal">
+                    <div className="modal-content">
+                        <img src={selectedImage} alt="Task" />
+                        <span onClick={handleCloseImage} className="close">&times;</span>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

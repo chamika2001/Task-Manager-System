@@ -12,6 +12,7 @@ import InProgressTasks  from './pages/GroupIn_pro';
 import GroupTodo from './pages/Group_todo';
 import GroupTasks from './pages/Group_task';
 import GroupCompleted from './pages/Group_completed';
+import Settings from './pages/setting';
 
 
 const App = () => {
@@ -30,6 +31,7 @@ const App = () => {
         <Route path="/GroupTodo" element={< GroupTodo />} />
         <Route path="/GroupTasks" element={< GroupTasks />} />
         <Route path="/GroupCompleted" element={< GroupCompleted />} />
+        <Route path="/Settings" element={<Settings />} />
       
       </Routes>
     </Router>

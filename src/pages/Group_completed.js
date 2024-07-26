@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTachometerAlt, faTasks, faReceipt, faChartLine, faMailBulk, faUsers, faCog, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { initializeApp } from 'firebase/app';
-import '../styles/completed.css'; // Adjust path if needed
+import '../styles/completed.css';
 
 const firebaseConfig = {
     apiKey: "AIzaSyBubWYb40n-2cIv1TPNPLjSW1mRmfFo4uM",
@@ -26,7 +26,6 @@ const CompletedTasks = () => {
     useEffect(() => {
         if (!currentProject) {
             alert("Please log into a project first.");
-            window.location.href = 'index.html'; // Redirect to login page
             return;
         }
 

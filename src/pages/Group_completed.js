@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { getDatabase, ref, onValue, set } from 'firebase/database';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTachometerAlt, faTasks, faReceipt, faChartLine, faMailBulk, faUsers, faCog, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
-import { getDatabase, ref, onValue, set, update } from 'firebase/database';
 import { initializeApp } from 'firebase/app';
 import '../styles/completed.css'; // Adjust path if needed
 
@@ -19,13 +19,14 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-const GroupTodo = () => {
+const CompletedTasks = () => {
     const [tasks, setTasks] = useState([]);
     const [currentProject, setCurrentProject] = useState(localStorage.getItem('loggedInProject'));
 
     useEffect(() => {
         if (!currentProject) {
             alert("Please log into a project first.");
+            window.location.href = 'index.html'; // Redirect to login page
             return;
         }
 
@@ -36,7 +37,7 @@ const GroupTodo = () => {
                     const tasksData = snapshot.val();
                     const taskArray = Object.keys(tasksData).map(key => ({ id: key, ...tasksData[key] }));
                     const filteredTasks = taskArray
-                        .filter(task => task.status === 'to-do')
+                        .filter(task => task.status === 'completed')
                         .sort((a, b) => b.createdAt - a.createdAt); // No limitation on number of tasks
                     setTasks(filteredTasks);
                 } else {
@@ -47,15 +48,6 @@ const GroupTodo = () => {
 
         loadTasks();
     }, [currentProject]);
-
-    const handleCompleteTask = async (taskId) => {
-        try {
-            await update(ref(db, `projects/${currentProject}/TaskSet/${taskId}`), { status: 'completed' });
-            setTasks(tasks.filter(task => task.id !== taskId));
-        } catch (error) {
-            console.error("Error updating task status:", error);
-        }
-    };
 
     const handleDeleteTask = async (taskId) => {
         try {
@@ -69,7 +61,7 @@ const GroupTodo = () => {
     return (
         <div className="container">
             <aside>
-            <div className="toggle">
+                <div className="toggle">
                     <div className="logo">
                         <img src="/assets/images/logo.png" alt="Logo" />
                         <h2>
@@ -89,7 +81,7 @@ const GroupTodo = () => {
                         <FontAwesomeIcon icon={faTasks} />
                         <h3>Tasks</h3>
                     </Link>
-                    <Link to="/GroupCompleted">
+                    <Link to="/GroupCompleted"  className="active">
                         <FontAwesomeIcon icon={faReceipt} />
                         <h3>Completed</h3>
                     </Link>
@@ -97,7 +89,7 @@ const GroupTodo = () => {
                         <FontAwesomeIcon icon={faChartLine} />
                         <h3>In Progress</h3>
                     </Link>
-                    <Link to="/GroupTodo" className="active">
+                    <Link to="/GroupTodo">
                         <FontAwesomeIcon icon={faMailBulk} />
                         <h3>To Do</h3>
                     </Link>
@@ -118,28 +110,35 @@ const GroupTodo = () => {
                             <th>Date</th>
                             <th>Priority</th>
                             <th>Image</th>
-                            <th>Complete task</th>
                             <th>Delete task</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {tasks.map((task, index) => (
-                            <tr key={task.id}>
-                                <td className="task-number">{index + 1}</td>
-                                <td>{task.title}</td>
-                                <td>{task.description}</td>
-                                <td>{task.name}</td>
-                                <td>{task.date}</td>
-                                <td>{task.priority}</td>
-                                <td><button>Upload Image</button></td>
-                                <td>
-                                    <button onClick={() => handleCompleteTask(task.id)} className="complete-task">Complete</button>
-                                </td>
-                                <td>
-                                    <button onClick={() => handleDeleteTask(task.id)} className="delete-task">Delete</button>
-                                </td>
+                        {tasks.length > 0 ? (
+                            tasks.map((task, index) => (
+                                <tr key={task.id}>
+                                    <td className="task-number">{index + 1}</td>
+                                    <td>{task.title}</td>
+                                    <td>{task.description}</td>
+                                    <td>{task.name}</td>
+                                    <td>{task.date}</td>
+                                    <td>{task.priority}</td>
+                                    <td><button>Upload Image</button></td>
+                                    <td>
+                                        <button 
+                                            className="delete-task" 
+                                            onClick={() => handleDeleteTask(task.id)}
+                                        >
+                                            Delete
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))
+                        ) : (
+                            <tr>
+                                <td colSpan="8">No tasks available</td>
                             </tr>
-                        ))}
+                        )}
                     </tbody>
                 </table>
             </div>
@@ -147,4 +146,4 @@ const GroupTodo = () => {
     );
 };
 
-export default GroupTodo;
+export default CompletedTasks;

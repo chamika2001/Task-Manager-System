@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { getDatabase, ref, onValue, set } from 'firebase/database';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTachometerAlt, faTasks, faReceipt, faChartLine, faMailBulk, faUsers, faCog, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { initializeApp } from 'firebase/app';
-import '../styles/tasks.css'; // Adjust path if needed
+import '../styles/completed.css';
 
 // Firebase configuration
 const firebaseConfig = {
@@ -18,14 +21,13 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-const Tasks = () => {
+const GroupTasks = () => {
     const [tasks, setTasks] = useState([]);
     const currentProject = localStorage.getItem('loggedInProject');
 
     useEffect(() => {
         if (!currentProject) {
             alert("Please log into a project first.");
-            window.location.href = 'index.html'; // Redirect to login page
             return;
         }
 
@@ -62,50 +64,39 @@ const Tasks = () => {
                 <div className="toggle">
                     <div className="logo">
                         <img src="/assets/images/logo.png" alt="Logo" />
-                        <h2>Task<span className="danger">Me</span></h2>
+                        <h2>
+                            Task<span className="danger">Me</span>
+                        </h2>
                     </div>
                     <div className="close" id="close-btn">
                         <span className="material-icons-sharp">close</span>
                     </div>
                 </div>
                 <div className="sidebar">
-                    <a href="/GROUP-PROJECT/pages/dashboard.html">
-                        <span className="material-icons-sharp">dashboard</span>
+                    <Link to="/Group-dashboard">
+                        <FontAwesomeIcon icon={faTachometerAlt} />
                         <h3>Dashboard</h3>
-                    </a>
-                    <a href="#" className="active">
-                        <span className="material-icons-sharp">person_outline</span>
+                    </Link>
+                    <Link to="/GroupTasks"  className="active">
+                        <FontAwesomeIcon icon={faTasks} />
                         <h3>Tasks</h3>
-                    </a>
-                    <a href="/GROUP-PROJECT/pages/completed.html">
-                        <span className="material-icons-sharp">receipt_long</span>
+                    </Link>
+                    <Link to="/GroupCompleted">
+                        <FontAwesomeIcon icon={faReceipt} />
                         <h3>Completed</h3>
-                    </a>
-                    <a href="/GROUP-PROJECT/pages/in-progress.html">
-                        <span className="material-icons-sharp">insights</span>
+                    </Link>
+                    <Link to="/GroupIn_pro">
+                        <FontAwesomeIcon icon={faChartLine} />
                         <h3>In Progress</h3>
-                    </a>
-                    <a href="/GROUP-PROJECT/pages/to-do.html">
-                        <span className="material-icons-sharp">mail_outline</span>
+                    </Link>
+                    <Link to="/GroupTodo">
+                        <FontAwesomeIcon icon={faMailBulk} />
                         <h3>To Do</h3>
-                        <span className="message-count">27</span>
-                    </a>
-                    <a href="/GROUP-PROJECT/pages/team.html">
-                        <span className="material-icons-sharp">person_outline</span>
-                        <h3>Team</h3>
-                    </a>
-                    <a href="/GROUP-PROJECT/pages/trash.html">
-                        <span className="material-icons-sharp">report_gmailerrorred</span>
-                        <h3>Trash</h3>
-                    </a>
-                    <a href="/GROUP-PROJECT/pages/settings.html">
-                        <span className="material-icons-sharp">settings</span>
-                        <h3>Settings</h3>
-                    </a>
-                    <a href="#">
-                        <span className="material-icons-sharp">logout</span>
+                    </Link>
+                    <Link to="/team">
+                        <FontAwesomeIcon icon={faSignOutAlt} />
                         <h3>Logout</h3>
-                    </a>
+                    </Link>
                 </div>
             </aside>
             <div className="table-container">
@@ -115,6 +106,7 @@ const Tasks = () => {
                             <th>No</th>
                             <th>Title</th>
                             <th>Description</th>
+                            <th>Name</th>
                             <th>Date</th>
                             <th>Priority</th>
                             <th>Status</th>
@@ -128,6 +120,7 @@ const Tasks = () => {
                                 <td className="task-number">{index + 1}</td>
                                 <td>{task.title}</td>
                                 <td>{task.description}</td>
+                                <td>{task.name}</td>
                                 <td>{task.date}</td>
                                 <td>{task.priority}</td>
                                 <td>{task.status}</td>
@@ -149,4 +142,4 @@ const Tasks = () => {
     );
 };
 
-export default Tasks;
+export default GroupTasks;

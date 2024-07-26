@@ -86,11 +86,11 @@ const InProgressTasks = () => {
                         <FontAwesomeIcon icon={faTachometerAlt} />
                         <h3>Dashboard</h3>
                     </Link>
-                    <Link to="/tasks">
+                    <Link to="/GroupTasks">
                         <FontAwesomeIcon icon={faTasks} />
                         <h3>Tasks</h3>
                     </Link>
-                    <Link to="/completed">
+                    <Link to="/GroupCompleted">
                         <FontAwesomeIcon icon={faReceipt} />
                         <h3>Completed</h3>
                     </Link>
@@ -102,7 +102,7 @@ const InProgressTasks = () => {
                         <FontAwesomeIcon icon={faMailBulk} />
                         <h3>To Do</h3>
                     </Link>
-                    <Link to="/logout">
+                    <Link to="/team">
                         <FontAwesomeIcon icon={faSignOutAlt} />
                         <h3>Logout</h3>
                     </Link>
@@ -115,9 +115,9 @@ const InProgressTasks = () => {
                             <th>No</th>
                             <th>Title</th>
                             <th>Description</th>
+                            <th>Name</th>
                             <th>Date</th>
                             <th>Priority</th>
-                            <th>Name</th>
                             <th>Image</th>
                             <th>Complete task</th>
                             <th>Delete task</th>
@@ -129,9 +129,9 @@ const InProgressTasks = () => {
                                 <td className="task-number">{index + 1}</td>
                                 <td>{task.title}</td>
                                 <td>{task.description}</td>
+                                <td>{task.name}</td>
                                 <td>{task.date}</td>
                                 <td>{task.priority}</td>
-                                <td>{task.name}</td>
                                 <td><button>Upload Image</button></td>
                                 <td>
                                     <button onClick={() => handleCompleteTask(task.id)} className="complete-task">Complete</button>

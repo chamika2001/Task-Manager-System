@@ -32,11 +32,11 @@ const Sidebar = () => {
             <FontAwesomeIcon icon={faTachometerAlt} />
             <h3>Dashboard</h3>
           </Link>
-          <Link to="/tasks">
+          <Link to="/GroupTasks">
             <FontAwesomeIcon icon={faTasks} />
             <h3>Tasks</h3>
           </Link>
-          <Link to="/completed">
+          <Link to="/GroupCompleted">
             <FontAwesomeIcon icon={faReceipt} />
             <h3>Completed</h3>
           </Link>
@@ -48,7 +48,7 @@ const Sidebar = () => {
             <FontAwesomeIcon icon={faMailBulk} />
             <h3>To Do</h3>
           </Link>
-          <Link to="/">
+          <Link to="/team">
             <FontAwesomeIcon icon={faSignOutAlt} />
             <h3>Logout</h3>
           </Link>

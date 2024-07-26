@@ -8,10 +8,7 @@ function GroupRightSec() {
                 <button id="menu-btn">
                     <span className="material-icons-sharp">menu</span>
                 </button>
-                <div className="dark-mode">
-                    <span className="material-icons-sharp active">light_mode</span>
-                    <span className="material-icons-sharp">dark_mode</span>
-                </div>
+               <br></br><br></br>
             </div>
             <div className="user-profile">
                 <div className="logo">
@@ -22,10 +19,11 @@ function GroupRightSec() {
                     <h2 id="projectDescription">{localStorage.getItem('projectDescription')}</h2>
                 </div>
             </div>
+            <br></br><br></br>
             <div className="reminders">
                 <div className="header">
                     <h2>Reminders</h2>
-                    <span className="material-icons-sharp">notifications_none</span>
+                    
                 </div>
                 {/* Add reminders here */}
                 <div className="notification add-reminder">

@@ -10,6 +10,7 @@ function GroupRightSec() {
                 </button>
                <br></br>
             </div>
+            <br></br>
             <div className="user-profile">
                 <div className="logo">
                     <h2>Project Name:</h2>

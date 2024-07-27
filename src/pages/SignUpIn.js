@@ -1,21 +1,19 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import '../styles/login.css';
 import Login from '../components/Login';
 import Register from '../components/Register';
 import Toggle from '../components/Toggle';
-import Modal from '../components/Modal'; // Ensure correct path
 
 const SignUpIn = () => {
   const [isActive, setIsActive] = useState(false);
-  const [modalMessage, setModalMessage] = useState('');
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleSignInSuccess = () => {
     console.log("Sign-in successful"); // Debugging
-    setModalMessage('Login is successful');
-    setIsModalOpen(true);
+    toast.success('Login is successful');
     setTimeout(() => {
       navigate('/dashboard'); // Use navigate to redirect
     }, 3000); // Navigate after 3 seconds
@@ -23,8 +21,7 @@ const SignUpIn = () => {
 
   const handleSignUpSuccess = () => {
     console.log("Sign-up successful"); // Debugging
-    setModalMessage('Account Created Successfully');
-    setIsModalOpen(true);
+    toast.success('Account Created Successfully');
     setTimeout(() => {
       navigate('/'); // Redirect to the home page after sign-up success
     }, 3000); // Navigate after 3 seconds
@@ -32,12 +29,7 @@ const SignUpIn = () => {
 
   const handleError = (message) => {
     console.log("Error occurred:", message); // Debugging
-    setModalMessage(message);
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
+    toast.error(message);
   };
 
   return (
@@ -47,7 +39,6 @@ const SignUpIn = () => {
         <Login onSignInSuccess={handleSignInSuccess} onError={handleError} />
         <Toggle onSignInClick={() => setIsActive(false)} onSignUpClick={() => setIsActive(true)} />
       </div>
-      {isModalOpen && <Modal message={modalMessage} onClose={closeModal} />}
     </div>
   );
 };

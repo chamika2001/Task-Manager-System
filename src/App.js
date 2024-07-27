@@ -32,7 +32,9 @@ const App = () => {
         <Route path="/GroupTasks" element={< GroupTasks />} />
         <Route path="/GroupCompleted" element={< GroupCompleted />} />
         <Route path="/Settings" element={<Settings />} />
-      
+        
+
+
       </Routes>
     </Router>
   );

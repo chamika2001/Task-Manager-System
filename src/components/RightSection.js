@@ -43,7 +43,7 @@ const RightSection = () => {
           <div className="logo">
             <img src="/assets/images/profile-2.jpg" alt="Profile" />
             <h2>Pasindu Dilshan</h2>
-            <p>Fullstack Web Developer</p>
+           
           </div>
         </div>
         

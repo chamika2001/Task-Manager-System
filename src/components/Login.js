@@ -56,7 +56,7 @@ const Login = ({ onSignInSuccess, onError }) => {
           required 
         />
         <a href="#">Forget Your Password?</a>
-        <button type="submit">Sign In</button>
+        <button>Sign In</button>
       </form>
     </div>
   );

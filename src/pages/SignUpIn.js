@@ -4,6 +4,7 @@ import '../styles/login.css';
 import Login from '../components/Login';
 import Register from '../components/Register';
 import Toggle from '../components/Toggle';
+import Modal from '../components/Modal'; // Ensure correct path
 
 const SignUpIn = () => {
   const [isActive, setIsActive] = useState(false);
@@ -12,24 +13,31 @@ const SignUpIn = () => {
   const navigate = useNavigate();
 
   const handleSignInSuccess = () => {
+    console.log("Sign-in successful"); // Debugging
     setModalMessage('Login is successful');
     setIsModalOpen(true);
     setTimeout(() => {
       navigate('/dashboard'); // Use navigate to redirect
-    }, 4000);
+    }, 3000); // Navigate after 3 seconds
   };
 
   const handleSignUpSuccess = () => {
+    console.log("Sign-up successful"); // Debugging
     setModalMessage('Account Created Successfully');
     setIsModalOpen(true);
     setTimeout(() => {
       navigate('/'); // Redirect to the home page after sign-up success
-    }, 4000);
+    }, 3000); // Navigate after 3 seconds
   };
 
   const handleError = (message) => {
+    console.log("Error occurred:", message); // Debugging
     setModalMessage(message);
     setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -39,14 +47,7 @@ const SignUpIn = () => {
         <Login onSignInSuccess={handleSignInSuccess} onError={handleError} />
         <Toggle onSignInClick={() => setIsActive(false)} onSignUpClick={() => setIsActive(true)} />
       </div>
-      {isModalOpen && (
-        <div className="modal" onClick={() => setIsModalOpen(false)}>
-          <div className="modal-content">
-            <span className="close" onClick={() => setIsModalOpen(false)}>&times;</span>
-            <p>{modalMessage}</p>
-          </div>
-        </div>
-      )}
+      {isModalOpen && <Modal message={modalMessage} onClose={closeModal} />}
     </div>
   );
 };

@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { ref, push, set } from 'firebase/database';
 import { getDatabase } from 'firebase/database';
 import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import styles from '../styles/Popup.module.css'; // Import the CSS module
 
 function Popup({ onClose }) {
@@ -48,10 +50,13 @@ function Popup({ onClose }) {
                     createdAt: Date.now(),
                     imageUrl // Include image URL in the task data
                 });
-                alert("Task added successfully");
-                onClose(); // Close the popup after successful task addition
+
+                toast.success('Task added successfully');
+                setTimeout(() => {
+                    onClose(); // Close the popup after 5 seconds
+                }, 5000); // 5000 milliseconds = 5 seconds
             } catch (error) {
-                alert("Unsuccessful: " + error);
+                toast.error('Unsuccessful: ' + error.message);
             }
         };
 
@@ -145,6 +150,7 @@ function Popup({ onClose }) {
                     <button type="submit" className={styles.submitButton}>Save Task</button>
                 </form>
             </div>
+            <ToastContainer autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
         </div>
     );
 }

@@ -8,6 +8,7 @@ import { firebaseConfig } from '../components/firebase-task'; // Adjust the path
 import TaskRow from '../components/TaskRow'; // Adjust the path according to your project structure
 import ImageModal from '../components/ImageModal'; // Import ImageModal component
 import '../styles/completed.css';
+import logo from '../assets/images/logo.png';
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -68,7 +69,7 @@ function Completed() {
       <aside>
         <div className="toggle">
           <div className="logo">
-            <img src="/assets/images/logo.png" alt="Logo" />
+          <img src={logo} alt="logo" />
             <h2>
               Task<span className="danger">Me</span>
             </h2>

@@ -1,10 +1,15 @@
-// src/components/RightSection.js
 import React, { useEffect, useRef, useState } from 'react';
+import { getAuth } from '../components/useAuth';
+import { getDatabase, ref, get } from 'firebase/database';
 import '../styles/dashboard.css'; // Import the regular CSS file
 
 const RightSection = () => {
   const darkModeRef = useRef(null);
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [userDetails, setUserDetails] = useState({
+    name: 'Pasindu', // Default value
+    profilePicture: '/assets/images/profile-2.jpg' // Default value
+  });
 
   useEffect(() => {
     const darkMode = darkModeRef.current;
@@ -16,6 +21,31 @@ const RightSection = () => {
     return () => {
       if (darkMode) darkMode.removeEventListener('click', toggleDarkMode);
     };
+  }, []);
+
+  useEffect(() => {
+    const fetchUserDetails = async () => {
+      const auth = getAuth();
+      const user = auth.currentUser;
+
+      if (user) {
+        const db = getDatabase();
+        const userRef = ref(db, 'userDetails/' + user.uid);
+
+        try {
+          const snapshot = await get(userRef);
+          if (snapshot.exists()) {
+            setUserDetails(snapshot.val());
+          } else {
+            console.log('No user data found');
+          }
+        } catch (error) {
+          console.error('Error fetching user data:', error);
+        }
+      }
+    };
+
+    fetchUserDetails();
   }, []);
 
   const toggleDarkMode = () => {
@@ -32,21 +62,19 @@ const RightSection = () => {
         </div>
         <div className="profile">
           <div className="info">
-            <p>Hey, <b>Pasindu</b></p>
+            <p>Hey, <b>{userDetails.name}</b></p>
           </div>
         </div>
       </div>
 
-      <br></br>
+      <br />
       <div className="right-section-content">
-        <div className="user-profile">
+        <div className="user-profile-single">
           <div className="logo">
-            <img src="/assets/images/profile-2.jpg" alt="Profile" />
-            <h2>Pasindu Dilshan</h2>
-           
+            <img src={userDetails.profileImage} alt="Profile" />
           </div>
         </div>
-        
+        <br /><br />
         <div className="reminders">
           <div className="header">
             <h2>Reminders</h2>

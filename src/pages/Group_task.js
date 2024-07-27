@@ -6,6 +6,7 @@ import { faTachometerAlt, faTasks, faReceipt, faChartLine, faMailBulk, faSignOut
 import { initializeApp } from 'firebase/app';
 import '../styles/completed.css';
 import '../styles/modal.css';
+import logo from '../assets/images/logo.png';
 
 // Firebase configuration
 const firebaseConfig = {
@@ -73,7 +74,7 @@ const GroupTasks = () => {
             <aside>
                 <div className="toggle">
                     <div className="logo">
-                        <img src="/assets/images/logo.png" alt="Logo" />
+                    <img src={logo} alt="logo" />
                         <h2>
                             Task<span className="danger">Me</span>
                         </h2>

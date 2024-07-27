@@ -6,6 +6,7 @@ import { faTachometerAlt, faTasks, faReceipt, faChartLine, faMailBulk, faSignOut
 import { initializeApp } from 'firebase/app';
 import '../styles/completed.css';
 import '../styles/modal.css'
+import logo from '../assets/images/logo.png';
 
 const firebaseConfig = {
     apiKey: "AIzaSyBubWYb40n-2cIv1TPNPLjSW1mRmfFo4uM",
@@ -72,7 +73,7 @@ const CompletedTasks = () => {
             <aside>
                 <div className="toggle">
                     <div className="logo">
-                        <img src="/assets/images/logo.png" alt="Logo" />
+                    <img src={logo} alt="logo" />
                         <h2>
                             Task<span className="danger">Me</span>
                         </h2>
@@ -151,7 +152,7 @@ const CompletedTasks = () => {
                             ))
                         ) : (
                             <tr>
-                                <td colSpan="8">No tasks available</td>
+                              
                             </tr>
                         )}
                     </tbody>

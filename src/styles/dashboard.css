@@ -370,7 +370,7 @@ main .recent-tasks a{
     overflow: hidden;
 }
 
-.right-section .user-profile{
+.right-section .user-profile-single{
     display: flex;
     justify-content: center;
     text-align: center;
@@ -384,21 +384,17 @@ main .recent-tasks a{
     
 }
 
-.right-section .user-profile:hover{
+.right-section .user-profile-single:hover{
     box-shadow: none;
 }
 
-.right-section .user-profile img{
-    width: 5rem;
-    height: auto;
+.right-section .user-profile-single img{
+    width: 11rem;
+    height: 11rem;
     margin-bottom: 0.8rem;
     border-radius: 50%;
-    margin-left: 2.5rem;
 }
 
-.right-section .user-profile h2{
-    margin-bottom: 0.2rem;
-}
 
 .right-section .reminders{
     margin-top: 3rem;

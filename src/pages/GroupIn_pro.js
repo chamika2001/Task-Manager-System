@@ -6,6 +6,8 @@ import { getDatabase, ref, onValue, set, update } from 'firebase/database';
 import { initializeApp } from 'firebase/app';
 import '../styles/completed.css'; 
 import '../styles/modal.css';
+import logo from '../assets/images/logo.png';
+
 
 const firebaseConfig = {
     apiKey: "AIzaSyBubWYb40n-2cIv1TPNPLjSW1mRmfFo4uM",
@@ -83,7 +85,7 @@ const InProgressTasks = () => {
             <aside>
                 <div className="toggle">
                     <div className="logo">
-                        <img src="/assets/images/logo.png" alt="Logo" />
+                    <img src={logo} alt="logo" />
                         <h2>
                             Task<span className="danger">Me</span>
                         </h2>

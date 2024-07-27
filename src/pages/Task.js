@@ -7,6 +7,8 @@ import { faTachometerAlt, faTasks, faReceipt, faChartLine, faMailBulk, faUsers, 
 
 import '../styles/dashboard.css';
 import '../styles/task.css';
+import logo from '../assets/images/logo.png';
+
 
 function Task() {
   const [showPopup, setShowPopup] = useState(false);
@@ -20,7 +22,7 @@ function Task() {
       <aside>
         <div className="toggle">
           <div className="logo">
-            <img src="/assets/images/logo.png" alt="Logo" />
+          <img src={logo} alt="logo" />
             <h2>Task<span className="danger">Me</span></h2>
           </div>
           <div className="close" id="close-btn">

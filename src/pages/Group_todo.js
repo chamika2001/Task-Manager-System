@@ -5,6 +5,8 @@ import { faTachometerAlt, faTasks, faReceipt, faChartLine, faMailBulk, faSignOut
 import { getDatabase, ref, onValue, set, update } from 'firebase/database';
 import { initializeApp } from 'firebase/app';
 import '../styles/completed.css'; // Adjust path if needed
+import logo from '../assets/images/logo.png';
+
 
 const firebaseConfig = {
     apiKey: "AIzaSyBubWYb40n-2cIv1TPNPLjSW1mRmfFo4uM",
@@ -80,7 +82,7 @@ const GroupTodo = () => {
             <aside>
                 <div className="toggle">
                     <div className="logo">
-                        <img src="/assets/images/logo.png" alt="Logo" />
+                    <img src={logo} alt="logo" />
                         <h2>
                             Task<span className="danger">Me</span>
                         </h2>
@@ -158,7 +160,7 @@ const GroupTodo = () => {
                             ))
                         ) : (
                             <tr>
-                                <td colSpan="9">No tasks available</td>
+                               
                             </tr>
                         )}
                     </tbody>

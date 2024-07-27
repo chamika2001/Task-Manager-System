@@ -7,6 +7,8 @@ import { database, ref, set, get } from '../components/firebase-project';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import styles from '../styles/team.module.css';
+import logo from '../assets/images/logo.png';
+
 
 function Team() {
   const [activeForm, setActiveForm] = useState('loginForm');
@@ -98,7 +100,7 @@ function Team() {
       <aside>
         <div className="toggle">
           <div className="logo">
-            <img src="/assets/images/logo.png" alt="Logo" />
+          <img src={logo} alt="logo" />
             <h2>Task<span className="danger">Me</span></h2>
           </div>
           <div className="close" id="close-btn">

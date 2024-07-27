@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { getDatabase, ref, push, set, onValue } from 'firebase/database';
 import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import '../styles/task.css';
 
 const TaskFormPopup = ({ togglePopup }) => {
@@ -17,7 +19,7 @@ const TaskFormPopup = ({ togglePopup }) => {
     const userId = localStorage.getItem('loggedInUserId'); // Retrieve user ID from localStorage
 
     if (!userId) {
-      alert('User ID is missing. Please log in again.');
+      toast.error('User ID is missing. Please log in again.');
       return;
     }
 
@@ -45,10 +47,12 @@ const TaskFormPopup = ({ togglePopup }) => {
       // Update task counts
       await updateTaskCounts(userId);
 
-      alert("Data added successfully");
-      togglePopup(); // Close the popup after successful submission
+      toast.success('Task added successfully');
+      setTimeout(() => {
+        togglePopup(); // Close the popup after 5 seconds
+      }, 5000); // 5000 milliseconds = 5 seconds
     } catch (error) {
-      alert("Unsuccessful: " + error.message);
+      toast.error('Unsuccessful: ' + error.message);
     }
   };
 
@@ -154,8 +158,9 @@ const TaskFormPopup = ({ togglePopup }) => {
           />
           <button type="submit">Save Task</button>
         </form>
-        <button id="close-popup" onClick={togglePopup}>Close</button>
+       
       </div>
+      <ToastContainer autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
     </div>
   );
 };

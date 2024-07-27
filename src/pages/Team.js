@@ -3,17 +3,17 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTachometerAlt, faTasks, faReceipt, faChartLine, faMailBulk, faUsers, faCog, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import emailjs from 'emailjs-com';
-import { database, ref, set, get } from '../components/firebase-project'; // Correct import
-
-import styles from '../styles/team.module.css'; // Import CSS module
+import { database, ref, set, get } from '../components/firebase-project';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import styles from '../styles/team.module.css';
 
 function Team() {
   const [activeForm, setActiveForm] = useState('loginForm');
   const [projectName, setProjectName] = useState('');
   const [projectDetails, setProjectDetails] = useState('');
   const [emailParams, setEmailParams] = useState({ name: '', to: '', pname: '' });
-  const [popupMessage, setPopupMessage] = useState(''); // State for popup message
-  const navigate = useNavigate(); // Initialize useNavigate hook
+  const navigate = useNavigate();
 
   const toggleForm = (formId) => {
     setActiveForm(formId);
@@ -23,7 +23,7 @@ function Team() {
     e.preventDefault();
 
     if (projectName.trim() === '') {
-      alert('Please enter a project name');
+      toast.error('Please enter a project name');
       return;
     }
 
@@ -31,19 +31,19 @@ function Team() {
     try {
       const snapshot = await get(projectRef);
       if (snapshot.exists()) {
-        alert('Project name already exists. Please choose another name.');
+        toast.error('Project name already exists. Please choose another name.');
       } else {
         await set(projectRef, {
           projectName: projectName,
           details: projectDetails
         });
-        alert('Project created successfully!');
+        toast.success('Project created successfully!');
         setProjectName('');
         setProjectDetails('');
       }
     } catch (error) {
       console.error('Error creating project:', error);
-      alert('Error creating project. Please try again later.');
+      toast.error('Error creating project. Please try again later.');
     }
   };
 
@@ -51,7 +51,7 @@ function Team() {
     e.preventDefault();
 
     if (projectName.trim() === '') {
-      alert('Please enter a project name');
+      toast.error('Please enter a project name');
       return;
     }
 
@@ -59,16 +59,18 @@ function Team() {
     try {
       const snapshot = await get(projectRef);
       if (snapshot.exists()) {
-        alert('Access granted to project: ' + projectName);
+        toast.success('Access granted to project: ' + projectName);
         localStorage.setItem('loggedInProject', projectName);
         localStorage.setItem('projectDescription', snapshot.val().details);
-        navigate('/Group-dashboard'); // Use navigate to redirect
+        setTimeout(() => {
+          navigate('/Group-dashboard');
+        }, 5000); // 5 seconds delay
       } else {
-        alert('Project does not exist. Please enter a valid project name.');
+        toast.error('Project does not exist. Please enter a valid project name.');
       }
     } catch (error) {
       console.error('Error accessing project:', error);
-      alert('Error accessing project. Please try again later.');
+      toast.error('Error accessing project. Please try again later.');
     }
   };
 
@@ -80,16 +82,10 @@ function Team() {
 
     try {
       await emailjs.send(serviceID, templateID, emailParams, 'tHLpli36-HDHgPev8');
-      setPopupMessage("Email sent successfully!");
+      toast.success("Email sent successfully!");
       clearInputFields();
-      setTimeout(() => {
-        setPopupMessage(''); // Clear popup message after 4 seconds
-      }, 4000); // 4 seconds
     } catch (error) {
-      setPopupMessage("Failed to send email. Error: " + JSON.stringify(error));
-      setTimeout(() => {
-        setPopupMessage(''); // Clear popup message after 4 seconds
-      }, 4000); // 4 seconds
+      toast.error("Failed to send email. Error: " + JSON.stringify(error));
     }
   };
 
@@ -226,12 +222,8 @@ function Team() {
         </div>
       </div>
 
-      {/* Popup */}
-      {popupMessage && (
-        <div className={`${styles.popup} ${popupMessage ? styles.popupShow : ''}`}>
-          {popupMessage}
-        </div>
-      )}
+    
+      <ToastContainer autoClose={4000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
     </div>
   );
 }

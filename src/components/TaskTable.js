@@ -53,7 +53,7 @@ const TaskTable = () => {
         counts.completed = Object.values(tasks).filter(task => task.status === 'completed').length;
       }
 
-      // Update counts in the database
+      
       await set(ref(db, `TaskCount/${userId}`), counts);
     } catch (error) {
       console.error("Error updating task counts:", error);

@@ -35,7 +35,7 @@ const Login = ({ onSignInSuccess, onError }) => {
 
   const handleForgotPasswordClick = (event) => {
     event.preventDefault();
-    navigate('/forgot-password'); // Navigate to the forgot password page
+    navigate('/forgot-password'); 
   };
 
   return (

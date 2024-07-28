@@ -9,10 +9,10 @@ const DashboardLogic = () => {
     const sideMenu = sideMenuRef.current;
 
     if (sideMenu) {
-      sideMenu.style.display = 'block'; // Adjust as needed for your layout
+      sideMenu.style.display = 'block'; 
     }
 
-    // Clean up if necessary
+  
     return () => {};
   }, []);
 

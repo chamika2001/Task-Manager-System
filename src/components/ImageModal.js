@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/modal.css'; // Add styles for your modal
+import '../styles/modal.css'; 
 
 const ImageModal = ({ imageUrl, onClose }) => {
   return (

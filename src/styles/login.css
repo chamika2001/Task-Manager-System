@@ -252,3 +252,56 @@
     text-decoration: none;
   }
   
+ /* forgotPassword.css */
+.a-forgot-password {
+    margin-left: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  
+  .a-forgot-password form {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    border: 2px solid #3f2eae; /* Box border */
+    border-radius: 10px;
+    background-color: #3e3e3e; /* Box background color */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Box shadow */
+  }
+  
+  .a-forgot-password h1, .a-forgot-password h2 {
+    margin-bottom: 20px;
+    text-align: center;
+    color: #3f2eae;
+  }
+  
+  .a-forgot-password input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .a-forgot-password button {
+    color: #ffffff;
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #3f2eae;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .a-forgot-password button:hover {
+    background-color: #322b90;
+  }
+  
+  .a-forgot-password p {
+    text-align: center;
+    color: #3f2eae;
+  }
+  

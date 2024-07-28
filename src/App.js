@@ -15,7 +15,7 @@ import GroupCompleted from './pages/Group_completed';
 import Settings from './pages/setting';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import ForgotPassword from '../src/components/ForgotPassword'
 const App = () => {
   
   return (
@@ -35,6 +35,7 @@ const App = () => {
           <Route path="/GroupTasks" element={<GroupTasks />} />
           <Route path="/GroupCompleted" element={<GroupCompleted />} />
           <Route path="/Settings" element={<Settings />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
         </Routes>
         <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
       </div>

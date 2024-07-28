@@ -5,7 +5,6 @@ import { faTachometerAlt, faTasks, faReceipt, faChartLine, faMailBulk, faSignOut
 import { getDatabase, ref, onValue, set, update } from 'firebase/database';
 import { initializeApp } from 'firebase/app';
 import '../styles/completed.css'; 
-import '../styles/modal.css';
 import logo from '../assets/images/logo.png';
 
 

@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTachometerAlt, faTasks, faReceipt, faChartLine, faMailBulk, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { initializeApp } from 'firebase/app';
 import '../styles/completed.css';
-import '../styles/modal.css';
 import logo from '../assets/images/logo.png';
 
 // Firebase configuration

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
-import '../styles/login.css'; // Ensure you have this CSS file
+import '../styles/login.css'; 
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');

@@ -1,10 +1,13 @@
+// Login.js
 import React, { useState } from 'react';
-import { getAuth, signInWithEmailAndPassword } from '../components/useAuth'; // Import the signInWithEmailAndPassword method
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate hook
 import '../styles/login.css';
 
 const Login = ({ onSignInSuccess, onError }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate(); // Use useNavigate hook to navigate
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -28,6 +31,11 @@ const Login = ({ onSignInSuccess, onError }) => {
       // Call the error callback with the error message
       onError(message);
     }
+  };
+
+  const handleForgotPasswordClick = (event) => {
+    event.preventDefault();
+    navigate('/forgot-password'); // Navigate to the forgot password page
   };
 
   return (
@@ -55,7 +63,7 @@ const Login = ({ onSignInSuccess, onError }) => {
           onChange={(e) => setPassword(e.target.value)} 
           required 
         />
-        <a href="#">Forget Your Password?</a>
+        <a href="#" onClick={handleForgotPasswordClick}>Forget Your Password?</a>
         <button>Sign In</button>
       </form>
     </div>

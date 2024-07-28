@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { getDatabase, ref, onValue, set } from 'firebase/database';
 import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from '../components/firebase-task'; // Adjust the path according to your project structure
-import TaskRow from '../components/TaskRow'; // Adjust the path according to your project structure
 import '../styles/task.css';
 import ImageModal from '../components/ImageModal'; // Import ImageModal component
 
@@ -100,13 +99,20 @@ const TaskTable = () => {
         </thead>
         <tbody>
           {Object.keys(tasks).map((key, index) => (
-            <TaskRow
-              key={key}
-              task={{ id: key, ...tasks[key] }}
-              index={index}
-              onDelete={deleteTask}
-              onViewImage={handleViewImage}
-            />
+            <tr key={key}>
+              <td>{index + 1}</td>
+              <td>{tasks[key].title}</td>
+              <td>{tasks[key].description}</td>
+              <td>{tasks[key].date}</td>
+              <td>{tasks[key].priority}</td>
+              <td>{tasks[key].status}</td>
+              <td>
+                <button onClick={() => handleViewImage(tasks[key].imageUrl || 'No Image')}>View</button>
+              </td>
+              <td>
+                <button onClick={() => deleteTask(key)}>Delete</button>
+              </td>
+            </tr>
           ))}
         </tbody>
       </table>

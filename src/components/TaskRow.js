@@ -1,6 +1,6 @@
 import React from 'react';
 
-const TaskRow = ({ task, index, onDelete, onViewImage }) => {
+const TaskRow = ({ task, index, onDelete, onComplete, onViewImage }) => {
   const { title, description, date, priority, status, imageUrl } = task;
 
   return (
@@ -14,7 +14,12 @@ const TaskRow = ({ task, index, onDelete, onViewImage }) => {
       <td>
         <button onClick={() => onViewImage(imageUrl || 'No Image')}>View</button>
       </td>
-      <td><button onClick={() => onDelete(task.id)}>Delete</button></td>
+      <td>
+        <button onClick={() => onComplete(task.id)}>Complete</button>
+      </td>
+      <td>
+        <button onClick={() => onDelete(task.id)}>Delete</button>
+      </td>
     </tr>
   );
 };

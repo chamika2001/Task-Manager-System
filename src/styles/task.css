@@ -1,9 +1,7 @@
-/* CSS for the "Add Task" Button */
-
 
 #open-popup {
-    margin: 20px auto; /* Center horizontally */
-    background-color: #073363;
+    margin: 20px auto; 
+    background-color: #1b4675;
     color: #ffffff;
     border: none;
     border-radius: 5px;
@@ -11,10 +9,10 @@
     transition: all 0.2s ease-in-out;
     width: 100px;
     height: 50px;
-    display: block; /* Center horizontally */
+    display: block; 
 }
 
-/* CSS for the Popup Form */
+
 .popup {
     position: fixed;
     top: 0;

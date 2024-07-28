@@ -3,7 +3,7 @@ import { getDatabase, ref, push, set, onValue } from 'firebase/database';
 import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import '../styles/task.css';
+import styles from '../styles/Popup.module.css'; // Import the CSS module
 
 const TaskFormPopup = ({ togglePopup }) => {
   const [taskTitle, setTaskTitle] = useState('');
@@ -12,7 +12,6 @@ const TaskFormPopup = ({ togglePopup }) => {
   const [priority, setPriority] = useState('low');
   const [status, setStatus] = useState('to-do');
   const [imageFile, setImageFile] = useState(null);
-  const [imageUrl, setImageUrl] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -96,69 +95,81 @@ const TaskFormPopup = ({ togglePopup }) => {
   };
 
   return (
-    <div className="popup visible">
-      <div className="popup-inner">
+    <div className={styles.popup}>
+      <div className={styles.popupContent}>
+        <button className={styles.closePopup} onClick={togglePopup}>Close</button>
         <h2>Task Details</h2>
         <form id="task-form" onSubmit={handleSubmit}>
-          <label htmlFor="task-title">Title:</label>
-          <input 
-            type="text" 
-            id="task-title" 
-            name="title" 
-            required 
-            value={taskTitle} 
-            onChange={(e) => setTaskTitle(e.target.value)} 
-          />
-          <label htmlFor="task-description">Description:</label>
-          <textarea 
-            id="task-description" 
-            name="description" 
-            value={taskDescription} 
-            onChange={(e) => setTaskDescription(e.target.value)}
-          ></textarea>
-          <label htmlFor="due-date">Due Date:</label>
-          <input 
-            type="date" 
-            id="due-date" 
-            name="dueDate" 
-            required 
-            value={dueDate} 
-            onChange={(e) => setDueDate(e.target.value)}
-          />
-          <label htmlFor="priority">Priority:</label>
-          <select 
-            id="priority" 
-            name="priority" 
-            required 
-            value={priority} 
-            onChange={(e) => setPriority(e.target.value)}
-          >
-            <option value="low">Low</option>
-            <option value="medium">Medium</option>
-            <option value="high">High</option>
-          </select>
-          <label htmlFor="status">Task Status:</label>
-          <select 
-            id="status" 
-            name="status" 
-            required 
-            value={status} 
-            onChange={(e) => setStatus(e.target.value)}
-          >
-            <option value="to-do">To-Do</option>
-            <option value="in-progress">In-progress</option>
-            <option value="completed">Completed</option>
-          </select>
-          <label htmlFor="task-image">Add Image:</label>
-          <input 
-            type="file" 
-            id="task-image" 
-            name="task-image" 
-            onChange={handleFileChange} 
-          />
-          <button type="submit">Save Task</button>
+          <div className={styles.formContainer}>
+            <div className={styles.formSection}>
+              <div className={styles.inputField}>
+                <label htmlFor="task-title">Title:</label>
+                <input 
+                  type="text" 
+                  id="task-title" 
+                  value={taskTitle} 
+                  onChange={(e) => setTaskTitle(e.target.value)} 
+                  required 
+                />
+              </div>
+              <div className={styles.inputField}>
+                <label htmlFor="task-description">Description:</label>
+                <textarea 
+                  id="task-description" 
+                  value={taskDescription} 
+                  onChange={(e) => setTaskDescription(e.target.value)}
+                ></textarea>
+              </div>
+              <div className={styles.inputField}>
+                <label htmlFor="due-date">Due Date:</label>
+                <input 
+                  type="date" 
+                  id="due-date" 
+                  value={dueDate} 
+                  onChange={(e) => setDueDate(e.target.value)} 
+                  required 
+                />
+              </div>
+              <div className={styles.inputField}>
+                <label htmlFor="priority">Priority:</label>
+                <select 
+                  id="priority" 
+                  value={priority} 
+                  onChange={(e) => setPriority(e.target.value)} 
+                  required
+                >
+                  <option value="low">Low</option>
+                  <option value="medium">Medium</option>
+                  <option value="high">High</option>
+                </select>
+              </div>
+            </div>
+            <div className={styles.formSection}>
+              <div className={styles.inputField}>
+                <label htmlFor="status">Task Status:</label>
+                <select 
+                  id="status" 
+                  value={status} 
+                  onChange={(e) => setStatus(e.target.value)} 
+                  required
+                >
+                  <option value="to-do">To-Do</option>
+                  <option value="in-progress">In-progress</option>
+                  <option value="completed">Completed</option>
+                </select>
+              </div>
+              <div className={styles.inputField}>
+                <label htmlFor="task-image">Add Image:</label>
+                <input 
+                  type="file" 
+                  id="task-image" 
+                  onChange={handleFileChange} 
+                />
+              </div>
+            </div>
+          </div>
+          <button type="submit" className={styles.submitButton}>Save Task</button>
         </form>
-       
       </div>
       <ToastContainer autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
     </div>

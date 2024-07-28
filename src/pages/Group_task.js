@@ -18,7 +18,7 @@ const firebaseConfig = {
     appId: "1:544113440895:web:ff116c0ad3c4766338274a"
 };
 
-// Initialize Firebase
+
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
@@ -61,11 +61,11 @@ const GroupTasks = () => {
     };
 
     const handleViewImage = (imageUrl) => {
-        setSelectedImage(imageUrl); // Set the selected image URL
+        setSelectedImage(imageUrl); 
     };
 
     const handleCloseImage = () => {
-        setSelectedImage(''); // Clear the selected image URL
+        setSelectedImage(''); 
     };
 
     return (

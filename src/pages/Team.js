@@ -136,7 +136,7 @@ function Team() {
             <FontAwesomeIcon icon={faCog} />
             <h3>Settings</h3>
           </Link>
-          <Link to="/logout">
+          <Link to="/">
             <FontAwesomeIcon icon={faSignOutAlt} />
             <h3>Logout</h3>
           </Link>
@@ -197,7 +197,7 @@ function Team() {
             type="text"
             value={emailParams.name}
             onChange={(e) => setEmailParams({ ...emailParams, name: e.target.value })}
-            placeholder="User name"
+            placeholder="name"
             required
             className={styles.formContainerInput}
           />

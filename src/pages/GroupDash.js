@@ -6,8 +6,6 @@ import GroupMainCon from '../components/GroupMainCon';
 import GroupRightSec from '../components/GroupRightSec';
 
 
-
-
 // Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyBubWYb40n-2cIv1TPNPLjSW1mRmfFo4uM",

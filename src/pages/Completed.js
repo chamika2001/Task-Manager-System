@@ -5,7 +5,6 @@ import { faTachometerAlt, faTasks, faReceipt, faChartLine, faMailBulk, faUsers, 
 import { getDatabase, ref, onValue, set } from 'firebase/database';
 import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from '../components/firebase-task'; // Adjust the path according to your project structure
-import TaskRow from '../components/TaskRow'; // Adjust the path according to your project structure
 import ImageModal from '../components/ImageModal'; // Import ImageModal component
 import '../styles/completed.css';
 import logo from '../assets/images/logo.png';
@@ -63,13 +62,34 @@ function Completed() {
     setModalImage(null);
   };
 
+  const TaskRow = ({ task, index, onDelete, onViewImage }) => {
+    const { title, description, date, priority, status, imageUrl } = task;
+
+    return (
+      <tr>
+        <td>{index + 1}</td>
+        <td>{title}</td>
+        <td>{description}</td>
+        <td>{date}</td>
+        <td>{priority}</td>
+        <td>{status}</td>
+        <td>
+          <button onClick={() => onViewImage(imageUrl || 'No Image')}>View</button>
+        </td>
+        <td>
+          <button onClick={() => onDelete(task.id)}>Delete</button>
+        </td>
+      </tr>
+    );
+  };
+
   return (
     <div className="container">
       {/* Sidebar Section */}
       <aside>
         <div className="toggle">
           <div className="logo">
-          <img src={logo} alt="logo" />
+            <img src={logo} alt="logo" />
             <h2>
               Task<span className="danger">Me</span>
             </h2>

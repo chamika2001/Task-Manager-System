@@ -37,7 +37,7 @@ const App = () => {
           <Route path="/Settings" element={<Settings />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
         </Routes>
-        <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
+        <ToastContainer position="top-right" autoClose={2000} hideProgressBar={false} />
       </div>
     </Router>
   );

@@ -12,7 +12,7 @@ const DashboardLogic = () => {
       sideMenu.style.display = 'block'; 
     }
 
-    // Clean up if necessary
+  
     return () => {};
   }, []);
 

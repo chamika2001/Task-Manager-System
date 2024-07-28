@@ -15,7 +15,7 @@ const ForgotPassword = () => {
       setResetMessage('Password reset email sent successfully.');
       setTimeout(() => {
         navigate('/');
-      }, 3000); // Redirect to login page after 3 seconds
+      }, 3000); 
     } catch (error) {
       setResetMessage(`Error sending password reset email: ${error.message}`);
     }

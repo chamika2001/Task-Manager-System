@@ -4,7 +4,7 @@ import { getDatabase } from 'firebase/database';
 import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import styles from '../styles/Popup.module.css'; // Import the CSS module
+import styles from '../styles/Popup.module.css'; 
 
 function Popup({ onClose }) {
     const [taskTitle, setTaskTitle] = useState('');

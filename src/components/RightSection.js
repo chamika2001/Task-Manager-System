@@ -7,7 +7,7 @@ const RightSection = () => {
   const darkModeRef = useRef(null);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [userDetails, setUserDetails] = useState({
-    name: 'Pasindu', // Default value
+    name: 'Pasindu', 
     profilePicture: '/assets/images/profile-2.jpg' // Default value
   });
 

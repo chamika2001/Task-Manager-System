@@ -28,7 +28,7 @@ function Completed() {
     onValue(taskRef, (snapshot) => {
       if (snapshot.exists()) {
         const allTasks = snapshot.val();
-        // Filter tasks to only include those with status 'completed'
+        // filled only completed task only
         const completedTasks = Object.keys(allTasks)
           .filter(key => allTasks[key].status === 'completed')
           .reduce((obj, key) => {
